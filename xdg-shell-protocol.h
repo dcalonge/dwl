@@ -270,7 +270,7 @@ extern const struct wl_interface xdg_surface_interface;
  * attributes (e.g. title, state, stacking, ...) are discarded for
  * an xdg_toplevel surface when it is unmapped. The xdg_toplevel returns to
  * the state it had right after xdg_surface.get_toplevel. The client
- * can re-map the toplevel by perfoming a commit without any buffer
+ * can re-map the toplevel by performing a commit without any buffer
  * attached, waiting for a configure event and handling it as usual (see
  * xdg_surface description).
  *
@@ -297,7 +297,7 @@ extern const struct wl_interface xdg_surface_interface;
  * attributes (e.g. title, state, stacking, ...) are discarded for
  * an xdg_toplevel surface when it is unmapped. The xdg_toplevel returns to
  * the state it had right after xdg_surface.get_toplevel. The client
- * can re-map the toplevel by perfoming a commit without any buffer
+ * can re-map the toplevel by performing a commit without any buffer
  * attached, waiting for a configure event and handling it as usual (see
  * xdg_surface description).
  *
@@ -1113,9 +1113,8 @@ struct xdg_surface_interface {
 	 * invisible portions like drop-shadows which should be ignored for
 	 * the purposes of aligning, placing and constraining windows.
 	 *
-	 * The window geometry is double buffered, and will be applied at
-	 * the time wl_surface.commit of the corresponding wl_surface is
-	 * called.
+	 * The window geometry is double-buffered state, see
+	 * wl_surface.commit.
 	 *
 	 * When maintaining a position, the compositor should treat the (x,
 	 * y) coordinate of the window geometry as the top left corner of
@@ -1343,8 +1342,7 @@ xdg_toplevel_resize_edge_is_valid(uint32_t value, uint32_t version) {
  * configure event to ensure that both the client and the compositor
  * setting the state can be synchronized.
  *
- * States set in this way are double-buffered. They will get applied on
- * the next commit.
+ * States set in this way are double-buffered, see wl_surface.commit.
  */
 enum xdg_toplevel_state {
 	/**
@@ -1738,8 +1736,8 @@ struct xdg_toplevel_interface {
 	 * The width and height arguments are in window geometry
 	 * coordinates. See xdg_surface.set_window_geometry.
 	 *
-	 * Values set in this way are double-buffered. They will get
-	 * applied on the next commit.
+	 * Values set in this way are double-buffered, see
+	 * wl_surface.commit.
 	 *
 	 * The compositor can use this information to allow or disallow
 	 * different states like maximize or fullscreen and draw accurate
@@ -1780,8 +1778,8 @@ struct xdg_toplevel_interface {
 	 * The width and height arguments are in window geometry
 	 * coordinates. See xdg_surface.set_window_geometry.
 	 *
-	 * Values set in this way are double-buffered. They will get
-	 * applied on the next commit.
+	 * Values set in this way are double-buffered, see
+	 * wl_surface.commit.
 	 *
 	 * The compositor can use this information to allow or disallow
 	 * different states like maximize or fullscreen and draw accurate
