@@ -167,10 +167,10 @@ static const Key keys[] = {
     { MODKEY,              XKB_KEY_q,        killclient,     {0} },
 
 	/* Volume and Brightness Controls */
-    { 0,   XKB_KEY_XF86AudioMute ,             spawn,  SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && ~/scripts/muteaudio.sh && kill -44 $(pidof someblocks)") },
+    { 0,   XKB_KEY_XF86AudioMute ,             spawn,  SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && kill -44 $(pidof someblocks) && ~/scripts/muteaudio.sh") },
     { 0,   XKB_KEY_XF86AudioMicMute ,          spawn,  SHCMD("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && ~/scripts/mic.sh") },
-	{ 0,   XKB_KEY_XF86AudioLowerVolume ,      spawn,  SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && ~/scripts/volume.sh && kill -44 $(pidof someblocks)") },
-	{ 0,   XKB_KEY_XF86AudioRaiseVolume ,      spawn,  SHCMD("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+ && ~/scripts/volume.sh && kill -44 $(pidof someblocks)") },
+	{ 0,   XKB_KEY_XF86AudioLowerVolume ,      spawn,  SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && kill -44 $(pidof someblocks) && ~/scripts/volume.sh") },
+	{ 0,   XKB_KEY_XF86AudioRaiseVolume ,      spawn,  SHCMD("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+ && kill -44 $(pidof someblocks) && ~/scripts/volume.sh") },
 	{ 0,   XKB_KEY_XF86MonBrightnessUp,        spawn,  SHCMD("brightnessctl set +5% && kill -54 $(pidof someblocks) && ~/scripts/brightness.sh") },
 	{ 0,   XKB_KEY_XF86MonBrightnessDown,      spawn,  SHCMD("brightnessctl set 5%- && kill -54 $(pidof someblocks) && ~/scripts/brightness.sh") },
 
