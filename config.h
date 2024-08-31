@@ -187,7 +187,6 @@ static const Key keys[] = {
 	{ MODKEY,                    XKB_KEY_minus,      incnmaster,     {.i = -1} },
 	{ MODKEY|WLR_MODIFIER_CTRL,  XKB_KEY_Right,      setmfact,       {.f = +0.05f} },
 	{ MODKEY|WLR_MODIFIER_CTRL,  XKB_KEY_Left,       setmfact,       {.f = -0.05f} },
-	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Return,     zoom,           {0} },
   { MODKEY,                    XKB_KEY_Tab,        focusstack,     {.i = +1 } },
 	{ MODKEY,                    XKB_KEY_q,          killclient,     {0} },
 	{ MODKEY,                    XKB_KEY_t,          setlayout,      {.v = &layouts[0]} },
