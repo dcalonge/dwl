@@ -9,7 +9,7 @@ static const int bypass_surface_visibility = 0;  /* 1 means idle inhibitors will
 static const int smartgaps                 = 1;  /* 1 means no outer gap when there is only one window */
 static int gaps                            = 1;  /* 1 means gaps between windows are added */
 static const unsigned int gappx            = 10; /* gap pixel between windows */
-static const unsigned int borderpx         = 1;  /* border pixel of windows */
+static const unsigned int borderpx         = 2;  /* border pixel of windows */
 static const float rootcolor[]             = COLOR(0x222222ff);
 static const float bordercolor[]           = COLOR(0x444444ff);
 static const float focuscolor[]            = COLOR(0x005577ff);
@@ -140,7 +140,7 @@ static const char *networkcmd[]  = { "networkmanager_dmenu", NULL };
 static const char *thunarcmd[]  = { "thunar", NULL };
 static const char *codecmd[]  = { "code", NULL };
 static const char *dmenucmd[] = { "j4-dmenu-desktop", "--no-generic", "--skip-i3-exec-check", "-f", "--dmenu", "bemenu", "-t", "foot", NULL };
-static const char *logoutcmd[]  = { "/home/daniel/scripts/dmenu_logout_river.sh", NULL };
+static const char *logoutcmd[]  = { "/home/daniel/scripts/dmenu_logout_dwl.sh", NULL };
 static const char *cliphistcmd[] = { "/home/daniel/scripts/cliphist-rofi", NULL };
 static const char *updatepromptcmd[] = { "/home/daniel/scripts/prompt.sh", NULL };
 
@@ -150,8 +150,8 @@ static const char *updatepromptcmd[] = { "/home/daniel/scripts/prompt.sh", NULL 
 static const Key keys[] = {
 	/* Note that Shift changes certain key codes: c -> C, 2 -> at, etc. */
 	/* modifier                  key                 function        argument */
-	{ MODKEY,              XKB_KEY_Return,   spawn,          {.v = termcmd } },
-    { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_s,        spawn,          {.v = screenshotcmd } },
+	{ MODKEY,                XKB_KEY_Return,   spawn,          {.v = termcmd } },
+    { MODKEY,              XKB_KEY_s,        spawn,          {.v = screenshotcmd } },
     { MODKEY,              XKB_KEY_b,        spawn,          {.v = browsercmd } },
     { MODKEY,              XKB_KEY_h,        spawn,          {.v = btopcmd } },
     { MODKEY,              XKB_KEY_y,        spawn,          {.v = yazicmd } },
@@ -161,7 +161,7 @@ static const Key keys[] = {
     { MODKEY,              XKB_KEY_e,        spawn,          {.v = thunarcmd } },
     { MODKEY,              XKB_KEY_c,        spawn,          {.v = codecmd } },
     { MODKEY,              XKB_KEY_d,        spawn,          {.v = dmenucmd } },
-    { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_e,        spawn,          {.v = logoutcmd } },
+    { MODKEY,              XKB_KEY_l,        spawn,          {.v = logoutcmd } },
     { MODKEY,              XKB_KEY_u,        spawn,          {.v = updatepromptcmd } },
     { MODKEY,              XKB_KEY_v,        spawn,          {.v = cliphistcmd } },
     { MODKEY,              XKB_KEY_q,        killclient,     {0} },
@@ -183,20 +183,18 @@ static const Key keys[] = {
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Right,      swapdir,        {.ui = 1} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Up,         swapdir,        {.ui = 2} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Down,       swapdir,        {.ui = 3} },
-	{ MODKEY,                    XKB_KEY_i,          incnmaster,     {.i = +1} },
-	{ MODKEY,                    XKB_KEY_d,          incnmaster,     {.i = -1} },
-	{ MODKEY|WLR_MODIFIER_CTRL,  XKB_KEY_Right,      setmfact,       {.f = -0.05f} },
-	{ MODKEY|WLR_MODIFIER_CTRL,  XKB_KEY_Left,       setmfact,       {.f = +0.05f} },
+	{ MODKEY,                    XKB_KEY_plus,       incnmaster,     {.i = +1} },
+	{ MODKEY,                    XKB_KEY_minus,      incnmaster,     {.i = -1} },
+	{ MODKEY|WLR_MODIFIER_CTRL,  XKB_KEY_Right,      setmfact,       {.f = +0.05f} },
+	{ MODKEY|WLR_MODIFIER_CTRL,  XKB_KEY_Left,       setmfact,       {.f = -0.05f} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Return,     zoom,           {0} },
-	{ MODKEY,                    XKB_KEY_Tab,        view,           {0} },
+  { MODKEY,                    XKB_KEY_Tab,        focusstack,     {.i = +1 } },
 	{ MODKEY,                    XKB_KEY_q,          killclient,     {0} },
 	{ MODKEY,                    XKB_KEY_t,          setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                    XKB_KEY_f,          setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                    XKB_KEY_m,          setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                    XKB_KEY_space,      setlayout,      {0} },
-	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_space,      togglefloating, {0} },
-	{ MODKEY,                    XKB_KEY_f,          togglefullscreen, {0} },
-	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_0,          tag,            {.ui = ~0} },
+	{ MODKEY,                    XKB_KEY_space,      togglefloating, {0} },
+	{ MODKEY,                    XKB_KEY_0,          view,            {.ui = ~0} },
 	{ MODKEY,                    XKB_KEY_o,          focusmon,       {.i = WLR_DIRECTION_LEFT} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_o,          tagmon,         {.i = WLR_DIRECTION_LEFT} },
 	TAGKEYS(          XKB_KEY_1, XKB_KEY_exclam,                     0),
