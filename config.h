@@ -136,13 +136,11 @@ static const char *btopcmd[]  = { "foot", "-c", "/home/daniel/.config/foot/foot_
 static const char *nvimcmd[]  = { "foot", "-c", "/home/daniel/.config/foot/foot_no_pad.ini", "-e", "nvim", NULL };
 static const char *yazicmd[]  = { "foot", "-c", "/home/daniel/.config/foot/foot_no_pad.ini", "-e", "yazi", NULL };
 static const char *pavucontrolcmd[] = { "pavucontrol", NULL };
-static const char *networkcmd[]  = { "networkmanager_dmenu", NULL };
 static const char *thunarcmd[]  = { "thunar", NULL };
 static const char *codecmd[]  = { "code", NULL };
 static const char *dmenucmd[] = { "j4-dmenu-desktop", "--no-generic", "--skip-i3-exec-check", "-f", "--dmenu", "bemenu", "-t", "foot", NULL };
 static const char *logoutcmd[]  = { "/home/daniel/scripts/dmenu_logout_dwl.sh", NULL };
 static const char *cliphistcmd[] = { "/home/daniel/scripts/cliphist-rofi", NULL };
-static const char *updatepromptcmd[] = { "/home/daniel/scripts/prompt.sh", NULL };
 
 
 /* Keys */
@@ -157,12 +155,12 @@ static const Key keys[] = {
     { MODKEY,              XKB_KEY_y,        spawn,          {.v = yazicmd } },
     { MODKEY,              XKB_KEY_n,        spawn,          {.v = nvimcmd } },
     { MODKEY,              XKB_KEY_p,        spawn,          {.v = pavucontrolcmd } },
-    { MODKEY,              XKB_KEY_w,        spawn,          {.v = networkcmd } },
+    { MODKEY,              XKB_KEY_w,        spawn,          SHCMD("networkmanager_dmenu && sleep 1 && kill -59 $(pidof someblocks)") },
     { MODKEY,              XKB_KEY_e,        spawn,          {.v = thunarcmd } },
     { MODKEY,              XKB_KEY_c,        spawn,          {.v = codecmd } },
     { MODKEY,              XKB_KEY_d,        spawn,          {.v = dmenucmd } },
     { MODKEY,              XKB_KEY_l,        spawn,          {.v = logoutcmd } },
-    { MODKEY,              XKB_KEY_u,        spawn,          {.v = updatepromptcmd } },
+    { MODKEY,              XKB_KEY_u,        spawn,          SHCMD("/home/daniel/scripts/prompt.sh && kill -64 $(pidof someblocks) ") },
     { MODKEY,              XKB_KEY_v,        spawn,          {.v = cliphistcmd } },
     { MODKEY,              XKB_KEY_q,        killclient,     {0} },
 
