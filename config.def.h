@@ -12,7 +12,7 @@ static const unsigned int gappx            = 10; /* gap pixel between windows */
 static const unsigned int borderpx         = 2;  /* border pixel of windows */
 static const float rootcolor[]             = COLOR(0x222222ff);
 static const float bordercolor[]           = COLOR(0x444444ff);
-static const float focuscolor[]            = COLOR(0x005577ff);
+static const float focuscolor[]            = COLOR(0x93a1a1ff);
 static const float urgentcolor[]           = COLOR(0xff0000ff);
 /* This conforms to the xdg-protocol. Set the alpha to zero to restore the old behavior */
 static const float fullscreen_bg[]         = {0.1f, 0.1f, 0.1f, 1.0f}; /* You can also use glsl colors */
@@ -119,10 +119,16 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 /* If you want to use the windows key for MODKEY, use WLR_MODIFIER_LOGO */
 #define MODKEY WLR_MODIFIER_LOGO
 
+
+void movetagandview(const Arg *arg) {
+    tag(arg);
+    view(arg);
+}
+
 #define TAGKEYS(KEY,SKEY,TAG) \
 	{ MODKEY,                    KEY,            view,            {.ui = 1 << TAG} }, \
 	{ MODKEY|WLR_MODIFIER_CTRL,  KEY,            toggleview,      {.ui = 1 << TAG} }, \
-	{ MODKEY|WLR_MODIFIER_SHIFT, SKEY,           tag,             {.ui = 1 << TAG} }, \
+	{ MODKEY|WLR_MODIFIER_SHIFT, SKEY,           movetagandview,  {.ui = 1 << TAG} }, \
 	{ MODKEY|WLR_MODIFIER_CTRL|WLR_MODIFIER_SHIFT,SKEY,toggletag, {.ui = 1 << TAG} }
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
@@ -136,13 +142,11 @@ static const char *btopcmd[]  = { "foot", "-c", "/home/daniel/.config/foot/foot_
 static const char *nvimcmd[]  = { "foot", "-c", "/home/daniel/.config/foot/foot_no_pad.ini", "-e", "nvim", NULL };
 static const char *yazicmd[]  = { "foot", "-c", "/home/daniel/.config/foot/foot_no_pad.ini", "-e", "yazi", NULL };
 static const char *pavucontrolcmd[] = { "pavucontrol", NULL };
-static const char *networkcmd[]  = { "networkmanager_dmenu", NULL };
 static const char *thunarcmd[]  = { "thunar", NULL };
 static const char *codecmd[]  = { "code", NULL };
 static const char *dmenucmd[] = { "j4-dmenu-desktop", "--no-generic", "--skip-i3-exec-check", "-f", "--dmenu", "bemenu", "-t", "foot", NULL };
 static const char *logoutcmd[]  = { "/home/daniel/scripts/dmenu_logout_dwl.sh", NULL };
 static const char *cliphistcmd[] = { "/home/daniel/scripts/cliphist-rofi", NULL };
-static const char *updatepromptcmd[] = { "/home/daniel/scripts/prompt.sh", NULL };
 
 
 /* Keys */
@@ -157,18 +161,19 @@ static const Key keys[] = {
     { MODKEY,              XKB_KEY_y,        spawn,          {.v = yazicmd } },
     { MODKEY,              XKB_KEY_n,        spawn,          {.v = nvimcmd } },
     { MODKEY,              XKB_KEY_p,        spawn,          {.v = pavucontrolcmd } },
-    { MODKEY,              XKB_KEY_w,        spawn,          {.v = networkcmd } },
+    { MODKEY,              XKB_KEY_w,        spawn,          SHCMD("networkmanager_dmenu && sleep 1 && kill -59 $(pidof someblocks)") },
     { MODKEY,              XKB_KEY_e,        spawn,          {.v = thunarcmd } },
     { MODKEY,              XKB_KEY_c,        spawn,          {.v = codecmd } },
     { MODKEY,              XKB_KEY_d,        spawn,          {.v = dmenucmd } },
     { MODKEY,              XKB_KEY_l,        spawn,          {.v = logoutcmd } },
-    { MODKEY,              XKB_KEY_u,        spawn,          {.v = updatepromptcmd } },
+    { MODKEY,              XKB_KEY_u,        spawn,          SHCMD("/home/daniel/scripts/prompt.sh && kill -64 $(pidof someblocks)") },
     { MODKEY,              XKB_KEY_v,        spawn,          {.v = cliphistcmd } },
+	  { MODKEY,              XKB_KEY_a,        spawn,          SHCMD("/home/daniel/scripts/dmenu_man") },
     { MODKEY,              XKB_KEY_q,        killclient,     {0} },
 
 	/* Volume and Brightness Controls */
-    { 0,   XKB_KEY_XF86AudioMute ,             spawn,  SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && kill -44 $(pidof someblocks) && ~/scripts/muteaudio.sh") },
-    { 0,   XKB_KEY_XF86AudioMicMute ,          spawn,  SHCMD("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && ~/scripts/mic.sh") },
+  { 0,   XKB_KEY_XF86AudioMute ,             spawn,  SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && kill -44 $(pidof someblocks) && ~/scripts/muteaudio.sh") },
+  { 0,   XKB_KEY_XF86AudioMicMute ,          spawn,  SHCMD("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && ~/scripts/mic.sh") },
 	{ 0,   XKB_KEY_XF86AudioLowerVolume ,      spawn,  SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && kill -44 $(pidof someblocks) && ~/scripts/volume.sh") },
 	{ 0,   XKB_KEY_XF86AudioRaiseVolume ,      spawn,  SHCMD("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+ && kill -44 $(pidof someblocks) && ~/scripts/volume.sh") },
 	{ 0,   XKB_KEY_XF86MonBrightnessUp,        spawn,  SHCMD("brightnessctl set +5% && kill -54 $(pidof someblocks) && ~/scripts/brightness.sh") },
@@ -203,8 +208,9 @@ static const Key keys[] = {
 	TAGKEYS(          XKB_KEY_4, XKB_KEY_dollar,                     3),
 	TAGKEYS(          XKB_KEY_5, XKB_KEY_percent,                    4),
 	TAGKEYS(          XKB_KEY_6, XKB_KEY_ampersand,                  5),
-	TAGKEYS(          XKB_KEY_7, XKB_KEY_parenleft,                  7),
-	TAGKEYS(          XKB_KEY_9, XKB_KEY_parenright,                8),
+  TAGKEYS(          XKB_KEY_7, XKB_KEY_slash,                      6),
+	TAGKEYS(          XKB_KEY_8, XKB_KEY_parenleft,                  7),
+	TAGKEYS(          XKB_KEY_9, XKB_KEY_parenright,                 8),
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Q,          quit,           {0} },
 
 	/* Ctrl-Alt-Backspace and Ctrl-Alt-Fx used to be handled by X server */
