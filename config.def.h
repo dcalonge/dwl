@@ -8,7 +8,7 @@ static const int sloppyfocus               = 1;  /* focus follows mouse */
 static const int bypass_surface_visibility = 0;  /* 1 means idle inhibitors will disable idle tracking even if it's surface isn't visible  */
 static const int smartgaps                 = 1;  /* 1 means no outer gap when there is only one window */
 static int gaps                            = 1;  /* 1 means gaps between windows are added */
-static const unsigned int gappx            = 10; /* gap pixel between windows */
+static const unsigned int gappx            = 4; /* gap pixel between windows */
 static const unsigned int borderpx         = 2;  /* border pixel of windows */
 static const float rootcolor[]             = COLOR(0x222222ff);
 static const float bordercolor[]           = COLOR(0x444444ff);
@@ -226,6 +226,6 @@ static const Key keys[] = {
 static const Button buttons[] = {
 	{ MODKEY, BTN_LEFT,   moveresize,     {.ui = CurMove} },
 	{ MODKEY, BTN_MIDDLE, togglefloating, {0} },
-	{ MODKEY, BTN_RIGHT,  moveresize,     {.ui = CurResize} },
+	{ MODKEY|WLR_MODIFIER_SHIFT,BTN_LEFT,  moveresize,     {.ui = CurResize} },
 };
 
