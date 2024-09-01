@@ -155,7 +155,6 @@ static const Key keys[] = {
 	/* Note that Shift changes certain key codes: c -> C, 2 -> at, etc. */
 	/* modifier                  key                 function        argument */
 	{ MODKEY,                XKB_KEY_Return,   spawn,          {.v = termcmd } },
-    { MODKEY,              XKB_KEY_s,        spawn,          {.v = screenshotcmd } },
     { MODKEY,              XKB_KEY_b,        spawn,          {.v = browsercmd } },
     { MODKEY,              XKB_KEY_h,        spawn,          {.v = btopcmd } },
     { MODKEY,              XKB_KEY_y,        spawn,          {.v = yazicmd } },
@@ -170,6 +169,7 @@ static const Key keys[] = {
     { MODKEY,              XKB_KEY_v,        spawn,          {.v = cliphistcmd } },
 	  { MODKEY,              XKB_KEY_a,        spawn,          SHCMD("/home/daniel/scripts/dmenu_man") },
     { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_F,  togglefullscreen, {0} },
+    { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_S,  spawn,          {.v = screenshotcmd }  },
     { MODKEY,              XKB_KEY_q,        killclient,       {0} },
 
 	/* Volume and Brightness Controls */
