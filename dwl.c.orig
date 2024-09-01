@@ -266,6 +266,7 @@ static void closemon(Monitor *m);
 static void commitlayersurfacenotify(struct wl_listener *listener, void *data);
 static void commitnotify(struct wl_listener *listener, void *data);
 static void commitpopup(struct wl_listener *listener, void *data);
+static int countclients(Monitor *m);
 static void createdecoration(struct wl_listener *listener, void *data);
 static void createidleinhibitor(struct wl_listener *listener, void *data);
 static void createkeyboard(struct wlr_keyboard *keyboard);
