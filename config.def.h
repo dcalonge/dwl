@@ -169,7 +169,8 @@ static const Key keys[] = {
     { MODKEY,              XKB_KEY_u,        spawn,          SHCMD("/home/daniel/scripts/prompt.sh && kill -64 $(pidof someblocks)") },
     { MODKEY,              XKB_KEY_v,        spawn,          {.v = cliphistcmd } },
 	  { MODKEY,              XKB_KEY_a,        spawn,          SHCMD("/home/daniel/scripts/dmenu_man") },
-    { MODKEY,              XKB_KEY_q,        killclient,     {0} },
+    { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_F,  togglefullscreen, {0} },
+    { MODKEY,              XKB_KEY_q,        killclient,       {0} },
 
 	/* Volume and Brightness Controls */
   { 0,   XKB_KEY_XF86AudioMute ,             spawn,  SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && kill -44 $(pidof someblocks) && ~/scripts/muteaudio.sh") },
