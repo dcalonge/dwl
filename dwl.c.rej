@@ -1,26 +1,10 @@
 --- dwl.c
 +++ dwl.c
-@@ -245,6 +245,7 @@ static void cleanupmon(struct wl_listener *listener, void *data);
- static void closemon(Monitor *m);
- static void commitlayersurfacenotify(struct wl_listener *listener, void *data);
- static void commitnotify(struct wl_listener *listener, void *data);
-+static int countclients(Monitor *m);
- static void createdecoration(struct wl_listener *listener, void *data);
- static void createidleinhibitor(struct wl_listener *listener, void *data);
- static void createkeyboard(struct wlr_keyboard *keyboard);
-@@ -286,6 +287,7 @@ static void motionabsolute(struct wl_listener *listener, void *data);
- static void motionnotify(uint32_t time);
- static void motionrelative(struct wl_listener *listener, void *data);
- static void moveresize(const Arg *arg);
-+static int needsborder(Client *c);
- static void outputmgrapply(struct wl_listener *listener, void *data);
- static void outputmgrapplyortest(struct wlr_output_configuration_v1 *config, int test);
- static void outputmgrtest(struct wl_listener *listener, void *data);
-@@ -1949,6 +1970,7 @@ resize(Client *c, struct wlr_box geo, int interact)
- 	struct wlr_box clip;
- 	client_set_bounds(c, geo.width, geo.height);
- 	c->geom = geo;
-+	c->bw = needsborder(c) ? borderpx : 0;
- 	applybounds(c, bbox);
- 
- 	/* Update scene-graph, including borders */
+@@ -200,6 +201,7 @@ struct Monitor {
+ 	struct wlr_box w; /* window area, layout-relative */
+ 	struct wl_list layers[4]; /* LayerSurface.link */
+ 	const Layout *lt[2];
++	Pertag *pertag;
+ 	unsigned int seltags;
+ 	unsigned int sellt;
+ 	uint32_t tagset[2];
