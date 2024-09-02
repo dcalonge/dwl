@@ -1,0 +1,80 @@
+From 70dc03a3817b8fd933244c2db1bb849d9626b12b Mon Sep 17 00:00:00 2001
+From: wochap <gean.marroquin@gmail.com>
+Date: Thu, 11 Apr 2024 13:16:40 -0500
+Subject: [PATCH] allow to add keybindings in lockscreen
+
+---
+ config.def.h | 11 +++++++++++
+ dwl.c        | 20 ++++++++++++++++++++
+ 2 files changed, 31 insertions(+)
+
+diff --git a/config.def.h b/config.def.h
+index 8847e58..0d4a4f8 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -164,6 +164,17 @@ static const Key keys[] = {
+ 	CHVT(7), CHVT(8), CHVT(9), CHVT(10), CHVT(11), CHVT(12),
+ };
+ 
++static const Key lockedkeys[] = {
++	/* Note that Shift changes certain key codes: c -> C, 2 -> at, etc. */
++	/* modifier                  key                 function        argument */
++
++	/* Ctrl-Alt-Backspace and Ctrl-Alt-Fx used to be handled by X server */
++	{ WLR_MODIFIER_CTRL|WLR_MODIFIER_ALT,XKB_KEY_Terminate_Server, quit, {0} },
++#define CHVT(n) { WLR_MODIFIER_CTRL|WLR_MODIFIER_ALT,XKB_KEY_XF86Switch_VT_##n, chvt, {.ui = (n)} }
++	CHVT(1), CHVT(2), CHVT(3), CHVT(4), CHVT(5), CHVT(6),
++	CHVT(7), CHVT(8), CHVT(9), CHVT(10), CHVT(11), CHVT(12),
++};
++
+ static const Button buttons[] = {
+ 	{ MODKEY, BTN_LEFT,   moveresize,     {.ui = CurMove} },
+ 	{ MODKEY, BTN_MIDDLE, togglefloating, {0} },
+diff --git a/dwl.c b/dwl.c
+index bf763df..db4bb2b 100644
+--- a/dwl.c
++++ b/dwl.c
+@@ -287,6 +287,7 @@ static void handlesig(int signo);
+ static void incnmaster(const Arg *arg);
+ static void inputdevice(struct wl_listener *listener, void *data);
+ static int keybinding(uint32_t mods, xkb_keysym_t sym);
++static int lockedkeybinding(uint32_t mods, xkb_keysym_t sym);
+ static void keypress(struct wl_listener *listener, void *data);
+ static void keypressmod(struct wl_listener *listener, void *data);
+ static int keyrepeat(void *data);
+@@ -1446,6 +1447,21 @@ keybinding(uint32_t mods, xkb_keysym_t sym)
+ 	return 0;
+ }
+ 
++int
++lockedkeybinding(uint32_t mods, xkb_keysym_t sym)
++{
++	int handled = 0;
++	const Key *k;
++	for (k = lockedkeys; k < END(lockedkeys); k++) {
++		if (CLEANMASK(mods) == CLEANMASK(k->mod) &&
++				sym == k->keysym && k->func) {
++			k->func(&k->arg);
++			handled = 1;
++		}
++	}
++	return handled;
++}
++
+ void
+ keypress(struct wl_listener *listener, void *data)
+ {
+@@ -1473,6 +1489,10 @@ keypress(struct wl_listener *listener, void *data)
+ 			handled = keybinding(mods, syms[i]) || handled;
+ 	}
+ 
++	if (locked && event->state == WL_KEYBOARD_KEY_STATE_PRESSED)
++		for (i = 0; i < nsyms; i++)
++			handled = lockedkeybinding(mods, syms[i]) || handled;
++
+ 	if (handled && group->wlr_group->keyboard.repeat_info.delay > 0) {
+ 		group->mods = mods;
+ 		group->keysyms = syms;
+-- 
+2.43.2
+
