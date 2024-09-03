@@ -8,18 +8,19 @@ static const int sloppyfocus               = 1;  /* focus follows mouse */
 static const int bypass_surface_visibility = 0;  /* 1 means idle inhibitors will disable idle tracking even if it's surface isn't visible  */
 static const int smartgaps                 = 1;  /* 1 means no outer gap when there is only one window */
 static int gaps                            = 1;  /* 1 means gaps between windows are added */
-static const unsigned int gappx            = 4; /* gap pixel between windows */
+static const unsigned int gappx            = 6; /* gap pixel between windows */
 static const unsigned int borderpx         = 2;  /* border pixel of windows */
+static const int user_bh		               = 24; /* 0 means that dwl will calculate barheight, >= 1 means dwl will use user_bh as the bar height. */
 static const int showbar                   = 1; /* 0 means no bar */
 static const int topbar                    = 1; /* 0 means bottom bar */
-static const char *fonts[]                 = {"JetbrainsMono Nerd Font:size=12"};
+static const char *fonts[]                 = {"JetbrainsMono Nerd Font:size=11"};
 static const float rootcolor[]             = COLOR(0x000000ff);
 /* This conforms to the xdg-protocol. Set the alpha to zero to restore the old behavior */
 static const float fullscreen_bg[]         = {0.1f, 0.1f, 0.1f, 1.0f}; /* You can also use glsl colors */
 static uint32_t colors[][3]                = {
 	/*               fg          bg          border    */
-	[SchemeNorm] = { 0xbbbbbbff, 0x141414ff, 0x444444ff },
-	[SchemeSel]  = { 0xeeeeeeff, 0x005577ff, 0x005577ff },
+	[SchemeNorm] = { 0xbbbbbbff, 0x000000ff, 0x444444ff },
+	[SchemeSel]  = { 0xeeeeeeff, 0x000000ff, 0x93a1a1ff },
   [SchemeUrg]  = { 0,          0,          0x770000ff },
 };
 /* tagging - TAGCOUNT must be no greater than 31 */
