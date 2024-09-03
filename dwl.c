@@ -385,10 +385,8 @@ static int statusin(int fd, unsigned int mask, void *data);
 static void tag(const Arg *arg);
 static void tagmon(const Arg *arg);
 static void tile(Monitor *m);
-static void togglebar(const Arg *arg);
 static void togglefloating(const Arg *arg);
 static void togglefullscreen(const Arg *arg);
-static void togglegaps(const Arg *arg);
 static void toggletag(const Arg *arg);
 static void toggleview(const Arg *arg);
 static void unlocksession(struct wl_listener *listener, void *data);
@@ -3246,14 +3244,6 @@ tile(Monitor *m)
 }
 
 void
-togglebar(const Arg *arg)
-{
-	wlr_scene_node_set_enabled(&selmon->scene_buffer->node,
-		!selmon->scene_buffer->node.enabled);
-	arrangelayers(selmon);
-}
-
-void
 togglefloating(const Arg *arg)
 {
 	Client *sel = focustop(selmon);
@@ -3268,13 +3258,6 @@ togglefullscreen(const Arg *arg)
 	Client *sel = focustop(selmon);
 	if (sel)
 		setfullscreen(sel, !sel->isfullscreen);
-}
-
-void
-togglegaps(const Arg *arg)
-{
-	selmon->gaps = !selmon->gaps;
-	arrange(selmon);
 }
 
 void
