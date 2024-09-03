@@ -25,7 +25,7 @@ static uint32_t colors[][3]                = {
 };
 /* tagging - TAGCOUNT must be no greater than 31 */
 static char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-#define TAGCOUNT (10)
+#define TAGCOUNT (9)
 /* logging */
 static int log_level = WLR_ERROR;
 
@@ -210,6 +210,8 @@ static const Key keys[] = {
 	{ MODKEY,                    XKB_KEY_0,          view,            {.ui = ~0} },
 	{ MODKEY,                    XKB_KEY_o,          focusmon,       {.i = WLR_DIRECTION_LEFT} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_O,          tagmon,         {.i = WLR_DIRECTION_LEFT} },
+  { MODKEY,                    XKB_KEY_period,     toggleview,     {.ui = 1 << 9} },
+	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_colon,      tag,            {.ui = 1 << 9} },
 	TAGKEYS(          XKB_KEY_1, XKB_KEY_exclam,                     0),
 	TAGKEYS(          XKB_KEY_2, XKB_KEY_quotedbl,                   1),
 	TAGKEYS(          XKB_KEY_3, XKB_KEY_periodcentered,             2),
