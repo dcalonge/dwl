@@ -19,7 +19,7 @@ static const float rootcolor[]             = COLOR(0x000000ff);
 static const float fullscreen_bg[]         = {0.1f, 0.1f, 0.1f, 1.0f}; /* You can also use glsl colors */
 static uint32_t colors[][3]                = {
 	/*               fg          bg          border    */
-	[SchemeNorm] = { 0xbbbbbbff, 0x000000ff, 0x444444ff },
+	[SchemeNorm] = { 0x93a1a1ff, 0x000000ff, 0x444444ff },
 	[SchemeSel]  = { 0xeeeeeeff, 0x000000ff, 0x93a1a1ff },
   [SchemeUrg]  = { 0,          0,          0x770000ff },
 };
@@ -210,8 +210,6 @@ static const Key keys[] = {
 	{ MODKEY,                    XKB_KEY_0,          view,            {.ui = ~0} },
 	{ MODKEY,                    XKB_KEY_o,          focusmon,       {.i = WLR_DIRECTION_LEFT} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_O,          tagmon,         {.i = WLR_DIRECTION_LEFT} },
-  { MODKEY,                    XKB_KEY_period,     toggleview,     {.ui = 1 << 9} },
-	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_colon,      tag,            {.ui = 1 << 9} },
 	TAGKEYS(          XKB_KEY_1, XKB_KEY_exclam,                     0),
 	TAGKEYS(          XKB_KEY_2, XKB_KEY_quotedbl,                   1),
 	TAGKEYS(          XKB_KEY_3, XKB_KEY_periodcentered,             2),
