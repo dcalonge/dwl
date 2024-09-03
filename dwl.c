@@ -867,8 +867,10 @@ commitnotify(struct wl_listener *listener, void *data)
 		 * a wrong monitor.
 		 */
 		applyrules(c);
-		wlr_surface_set_preferred_buffer_scale(client_surface(c), (int)ceilf(c->mon->wlr_output->scale));
-		wlr_fractional_scale_v1_notify_scale(client_surface(c), c->mon->wlr_output->scale);
+		if (c->mon) {
+			wlr_surface_set_preferred_buffer_scale(client_surface(c), (int)ceilf(c->mon->wlr_output->scale));
+			wlr_fractional_scale_v1_notify_scale(client_surface(c), c->mon->wlr_output->scale);
+		}
 		setmon(c, NULL, 0); /* Make sure to reapply rules in mapnotify() */
 
 		wlr_xdg_toplevel_set_wm_capabilities(c->surface.xdg->toplevel, WLR_XDG_TOPLEVEL_WM_CAPABILITIES_FULLSCREEN);

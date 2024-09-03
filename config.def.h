@@ -18,7 +18,7 @@ static const float urgentcolor[]           = COLOR(0xff0000ff);
 static const float fullscreen_bg[]         = {0.1f, 0.1f, 0.1f, 1.0f}; /* You can also use glsl colors */
 
 /* tagging - TAGCOUNT must be no greater than 31 */
-#define TAGCOUNT (9)
+#define TAGCOUNT (10)
 
 /* logging */
 static int log_level = WLR_ERROR;
@@ -32,9 +32,10 @@ static const char *const autostart[] = {
 
 /* NOTE: ALWAYS keep a rule declared even if you don't use rules (e.g leave at least one example) */
 static const Rule rules[] = {
-	/* app_id             title       tags mask     isfloating   monitor */
+	/* app_id             title           tags mask     isfloating   monitor */
 	/* examples: */
-	{ "Gimp_EXAMPLE",     NULL,       0,            0,           -1 }, /* Start on currently visible tags floating, not tiled */
+	{ NULL,              "Open File",     0,            1,           -1 },
+  { NULL,              "Open Folder",   0,            1,           -1 },
 };
 
 /* layout(s) */
@@ -203,6 +204,8 @@ static const Key keys[] = {
 	{ MODKEY,                    XKB_KEY_0,          view,            {.ui = ~0} },
 	{ MODKEY,                    XKB_KEY_o,          focusmon,       {.i = WLR_DIRECTION_LEFT} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_O,          tagmon,         {.i = WLR_DIRECTION_LEFT} },
+	{ MODKEY,                    XKB_KEY_period,     toggleview, {.ui = 1 << 9} },
+	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_colon,     tag, {.ui = 1 << 9} },
 	TAGKEYS(          XKB_KEY_1, XKB_KEY_exclam,                     0),
 	TAGKEYS(          XKB_KEY_2, XKB_KEY_quotedbl,                   1),
 	TAGKEYS(          XKB_KEY_3, XKB_KEY_periodcentered,             2),
