@@ -1,10 +1,12 @@
 --- dwl.c
 +++ dwl.c
-@@ -200,6 +201,7 @@ struct Monitor {
- 	struct wlr_box w; /* window area, layout-relative */
- 	struct wl_list layers[4]; /* LayerSurface.link */
- 	const Layout *lt[2];
-+	Pertag *pertag;
- 	unsigned int seltags;
- 	unsigned int sellt;
- 	uint32_t tagset[2];
+@@ -432,9 +431,6 @@ static xcb_atom_t netatom[NetLast];
+ /* attempt to encapsulate suck into one file */
+ #include "client.h"
+ 
+-static pid_t *autostart_pids;
+-static size_t autostart_len;
+-
+ /* function implementations */
+ void
+ applybounds(Client *c, struct wlr_box *bbox)
