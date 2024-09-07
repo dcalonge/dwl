@@ -492,10 +492,10 @@ static xcb_atom_t netatom[NetLast];
 
 struct Pertag {
 	unsigned int curtag, prevtag; /* current and previous tag */
-	int nmasters[TAGCOUNT + 1]; /* number of windows in master area */
-	float mfacts[TAGCOUNT + 1]; /* mfacts per tag */
-	unsigned int sellts[TAGCOUNT + 1]; /* selected layouts */
-	const Layout *ltidxs[TAGCOUNT + 1][2]; /* matrix of tags and layouts indexes  */
+	int nmasters[LENGTH(tags) + 1]; /* number of windows in master area */
+	float mfacts[LENGTH(tags) + 1]; /* mfacts per tag */
+	unsigned int sellts[LENGTH(tags) + 1]; /* selected layouts */
+	const Layout *ltidxs[LENGTH(tags) + 1][2]; /* matrix of tags and layouts indexes  */
 };
 
 /* function implementations */
@@ -1238,7 +1238,7 @@ createmon(struct wl_listener *listener, void *data)
 	m->pertag = calloc(1, sizeof(Pertag));
 	m->pertag->curtag = m->pertag->prevtag = 1;
 
-	for (i = 0; i <= TAGCOUNT; i++) {
+	for (i = 0; i <= LENGTH(tags); i++) {
 		m->pertag->nmasters[i] = m->nmaster;
 		m->pertag->mfacts[i] = m->mfact;
 
