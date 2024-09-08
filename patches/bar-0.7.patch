@@ -50,7 +50,7 @@ index 22d2171..5d1dc2b 100644
 +};
  
  /* tagging - TAGCOUNT must be no greater than 31 */
--#define TAGCOUNT (9)
+#define TAGCOUNT (9)
 +static char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
  
  /* logging */
@@ -70,17 +70,18 @@ index 22d2171..5d1dc2b 100644
 -	{ MODKEY, BTN_LEFT,   moveresize,     {.ui = CurMove} },
 -	{ MODKEY, BTN_MIDDLE, togglefloating, {0} },
 -	{ MODKEY, BTN_RIGHT,  moveresize,     {.ui = CurResize} },
-+	{ ClkLtSymbol, 0,      BTN_LEFT,   setlayout,      {.v = &layouts[0]} },
-+	{ ClkLtSymbol, 0,      BTN_RIGHT,  setlayout,      {.v = &layouts[2]} },
-+	{ ClkTitle,    0,      BTN_MIDDLE, zoom,           {0} },
-+	{ ClkStatus,   0,      BTN_MIDDLE, spawn,          {.v = termcmd} },
-+	{ ClkClient,   MODKEY, BTN_LEFT,   moveresize,     {.ui = CurMove} },
-+	{ ClkClient,   MODKEY, BTN_MIDDLE, togglefloating, {0} },
-+	{ ClkClient,   MODKEY, BTN_RIGHT,  moveresize,     {.ui = CurResize} },
-+	{ ClkTagBar,   0,      BTN_LEFT,   view,           {0} },
-+	{ ClkTagBar,   0,      BTN_RIGHT,  toggleview,     {0} },
-+	{ ClkTagBar,   MODKEY, BTN_LEFT,   tag,            {0} },
-+	{ ClkTagBar,   MODKEY, BTN_RIGHT,  toggletag,      {0} },
++	{ ClkLtSymbol, 0,      					BTN_LEFT,   setlayout,      {.v = &layouts[0]} },
++	{ ClkLtSymbol, 0,      					BTN_RIGHT,  setlayout,      {.v = &layouts[2]} },
++	{ ClkLtSymbol, 0,      					BTN_MIDDLE, setlayout,      {.v = &layouts[1]} },
++	{ ClkTitle,    0,      					BTN_LEFT,   zoom,           {0} },
++	{ ClkStatus,   0,      					BTN_LEFT,   spawn,          {.v = termcmd} },
++	{ ClkClient,   MODKEY, 					BTN_LEFT,   moveresize,     {.ui = CurMove} },
++	{ ClkClient,   MODKEY, 					BTN_MIDDLE, togglefloating, {0} },
++	{ ClkClient,   MODKEY|WLR_MODIFIER_CTRL,BTN_LEFT,   moveresize, 	{.ui = CurResize} },
++	{ ClkTagBar,   0,      					BTN_LEFT,   view,           {0} },
++	{ ClkTagBar,   0,      					BTN_MIDDLE, toggleview,     {0} },
++	{ ClkTagBar,   0,						BTN_RIGHT,  movetagandview, {0} },
++	{ ClkTagBar,   MODKEY, 					BTN_LEFT,  toggletag,      	{0} },
  };
 diff --git a/drwl.h b/drwl.h
 new file mode 100644
