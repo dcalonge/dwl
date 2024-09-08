@@ -246,5 +246,6 @@ static const Key lockedkeys[] = {
 static const Button buttons[] = {
 		{ ClkClient,   MODKEY, BTN_LEFT,   moveresize,     {.ui = CurMove} },
 	  { ClkClient,   MODKEY, BTN_MIDDLE, togglefloating, {0} },
- 	  { ClkClient,   MODKEY|WLR_MODIFIER_CTRL, BTN_LEFT, moveresize, {.ui = CurResize} },};
+ 	  { ClkClient,   MODKEY|WLR_MODIFIER_CTRL, BTN_LEFT, moveresize, {.ui = CurResize} },
+};
 

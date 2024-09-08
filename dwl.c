@@ -748,24 +748,13 @@ bufrelease(struct wl_listener *listener, void *data)
 void
 buttonpress(struct wl_listener *listener, void *data)
 {
-	unsigned int i = 0, x = 0;
-	double cx;
-	unsigned int click;
 	struct wlr_pointer_button_event *event = data;
 	struct wlr_keyboard *keyboard;
-	struct wlr_scene_node *node;
-	struct wlr_scene_buffer *buffer;
 	uint32_t mods;
-	Arg arg = {0};
 	Client *c;
 	const Button *b;
 
 	wlr_idle_notifier_v1_notify_activity(idle_notifier, seat);
-
-	click = ClkRoot;
-	xytonode(cursor->x, cursor->y, NULL, &c, NULL, NULL, NULL);
-	if (c)
-		click = ClkClient;
 
 	switch (event->state) {
 	case WL_POINTER_BUTTON_STATE_PRESSED:
@@ -774,34 +763,17 @@ buttonpress(struct wl_listener *listener, void *data)
 		if (locked)
 			break;
 
-		if (!c && !exclusive_focus &&
-			(node = wlr_scene_node_at(&layers[LyrBottom]->node, cursor->x, cursor->y, NULL, NULL)) &&
-			(buffer = wlr_scene_buffer_from_node(node)) && buffer == selmon->scene_buffer) {
-			cx = (cursor->x - selmon->m.x) * selmon->wlr_output->scale;
-			do
-				x += TEXTW(selmon, tags[i]);
-			while (cx >= x && ++i < LENGTH(tags));
-			if (i < LENGTH(tags)) {
-				click = ClkTagBar;
-				arg.ui = 1 << i;
-			} else if (cx < x + TEXTW(selmon, selmon->ltsymbol))
-				click = ClkLtSymbol;
-			else if (cx > selmon->b.width - (TEXTW(selmon, stext) - selmon->lrpad + 2)) {
-				click = ClkStatus;
-			} else
-				click = ClkTitle;
-		}
-
 		/* Change focus if the button was _pressed_ over a client */
 		xytonode(cursor->x, cursor->y, NULL, &c, NULL, NULL, NULL);
-		if (click == ClkClient && (!client_is_unmanaged(c) || client_wants_focus(c)))
+		if (c && (!client_is_unmanaged(c) || client_wants_focus(c)))
 			focusclient(c, 1);
 
 		keyboard = wlr_seat_get_keyboard(seat);
 		mods = keyboard ? wlr_keyboard_get_modifiers(keyboard) : 0;
 		for (b = buttons; b < END(buttons); b++) {
-			if (CLEANMASK(mods) == CLEANMASK(b->mod) && event->button == b->button && click == b->click && b->func) {
-				b->func(click == ClkTagBar && b->arg.i == 0 ? &arg : &b->arg);
+			if (CLEANMASK(mods) == CLEANMASK(b->mod) &&
+					event->button == b->button && b->func) {
+				b->func(&b->arg);
 				return;
 			}
 		}
