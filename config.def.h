@@ -22,7 +22,7 @@ static uint32_t colors[][3]                = {
 	/*               fg          bg          border    */
 	[SchemeNorm] = { 0x93a1a1ff, 0x000000ff, 0x444444ff },
 	[SchemeSel]  = { 0xeeeeeeff, 0x000000ff, 0x93a1a1ff },
-  [SchemeUrg]  = { 0,          0,          0x770000ff },
+  	[SchemeUrg]  = { 0,          0,          0x770000ff },
 };
 
 /* tagging - TAGCOUNT must be no greater than 31 */
