@@ -245,8 +245,17 @@ static const Key lockedkeys[] = {
 
 
 static const Button buttons[] = {
-	{ MODKEY, BTN_LEFT,   moveresize,     {.ui = CurMove} },
-	{ MODKEY, BTN_MIDDLE, togglefloating, {0} },
-	{ MODKEY|WLR_MODIFIER_CTRL, BTN_LEFT, moveresize, {.ui = CurResize} },
+	{ ClkLtSymbol, 0,      BTN_LEFT,   setlayout,      {.v = &layouts[0]} },
+	{ ClkLtSymbol, 0,      BTN_RIGHT,  setlayout,      {.v = &layouts[2]} },
+	{ ClkLtSymbol, 0,      BTN_MIDDLE, setlayout,      {.v = &layouts[1]} },
+	{ ClkTitle,    0,      BTN_MIDDLE, zoom,           {0} },
+	{ ClkStatus,   0,      BTN_MIDDLE, spawn,          {.v = termcmd} },
+	{ ClkClient,   MODKEY, BTN_LEFT,   moveresize,     {.ui = CurMove} },
+	{ ClkClient,   MODKEY, BTN_MIDDLE, togglefloating, {0} },
+	{ ClkClient,   MODKEY|WLR_MODIFIER_CTRL,BTN_LEFT,   moveresize, {.ui = CurResize} },
+	{ ClkTagBar,   0,      BTN_LEFT,   view,           {0} },
+	{ ClkTagBar,   0,      BTN_RIGHT,  toggleview,     {0} },
+	{ ClkTagBar,   MODKEY, BTN_LEFT,   movetagandview, {0} },
+	{ ClkTagBar,   MODKEY, BTN_RIGHT,  toggletag,      {0} },
 };
 
