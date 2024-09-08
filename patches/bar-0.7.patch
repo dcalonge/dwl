@@ -67,20 +67,9 @@ index 22d2171..5d1dc2b 100644
  };
  
  static const Button buttons[] = {
--	{ MODKEY, BTN_LEFT,   moveresize,     {.ui = CurMove} },
--	{ MODKEY, BTN_MIDDLE, togglefloating, {0} },
+
 -	{ MODKEY, BTN_RIGHT,  moveresize,     {.ui = CurResize} },
-+	{ ClkLtSymbol, 0,      BTN_LEFT,   setlayout,      {.v = &layouts[0]} },
-+	{ ClkLtSymbol, 0,      BTN_RIGHT,  setlayout,      {.v = &layouts[2]} },
-+	{ ClkTitle,    0,      BTN_MIDDLE, zoom,           {0} },
-+	{ ClkStatus,   0,      BTN_MIDDLE, spawn,          {.v = termcmd} },
-+	{ ClkClient,   MODKEY, BTN_LEFT,   moveresize,     {.ui = CurMove} },
-+	{ ClkClient,   MODKEY, BTN_MIDDLE, togglefloating, {0} },
-+	{ ClkClient,   MODKEY, BTN_RIGHT,  moveresize,     {.ui = CurResize} },
-+	{ ClkTagBar,   0,      BTN_LEFT,   view,           {0} },
-+	{ ClkTagBar,   0,      BTN_RIGHT,  toggleview,     {0} },
-+	{ ClkTagBar,   MODKEY, BTN_LEFT,   tag,            {0} },
-+	{ ClkTagBar,   MODKEY, BTN_RIGHT,  toggletag,      {0} },
++	{ MODKEY|WLR_MODIFIER_CTRL, BTN_LEFT, moveresize, {.ui = CurResize} },
  };
 diff --git a/drwl.h b/drwl.h
 new file mode 100644
@@ -442,7 +431,6 @@ index a2711f6..ece537a 100644
  enum { CurNormal, CurPressed, CurMove, CurResize }; /* cursor */
  enum { XDGShell, LayerShell, X11 }; /* client types */
  enum { LyrBg, LyrBottom, LyrTile, LyrFloat, LyrTop, LyrFS, LyrOverlay, LyrBlock, NUM_LAYERS }; /* scene layers */
-+enum { ClkTagBar, ClkLtSymbol, ClkStatus, ClkTitle, ClkClient, ClkRoot }; /* clicks */
  #ifdef XWAYLAND
  enum { NetWMWindowTypeDialog, NetWMWindowTypeSplash, NetWMWindowTypeToolbar,
  	NetWMWindowTypeUtility, NetLast }; /* EWMH atoms */
@@ -450,7 +438,6 @@ index a2711f6..ece537a 100644
  } Arg;
  
  typedef struct {
-+	unsigned int click;
  	unsigned int mod;
  	unsigned int button;
  	void (*func)(const Arg *);
@@ -656,67 +643,18 @@ index a2711f6..ece537a 100644
  void
  buttonpress(struct wl_listener *listener, void *data)
  {
-+	unsigned int i = 0, x = 0;
-+	double cx;
-+	unsigned int click;
  	struct wlr_pointer_button_event *event = data;
  	struct wlr_keyboard *keyboard;
-+	struct wlr_scene_node *node;
-+	struct wlr_scene_buffer *buffer;
  	uint32_t mods;
-+	Arg arg = {0};
  	Client *c;
  	const Button *b;
  
  	wlr_idle_notifier_v1_notify_activity(idle_notifier, seat);
  
-+	click = ClkRoot;
-+	xytonode(cursor->x, cursor->y, NULL, &c, NULL, NULL, NULL);
-+	if (c)
-+		click = ClkClient;
-+
  	switch (event->state) {
  	case WL_POINTER_BUTTON_STATE_PRESSED:
  		cursor_mode = CurPressed;
-@@ -613,17 +747,34 @@ buttonpress(struct wl_listener *listener, void *data)
- 		if (locked)
- 			break;
- 
-+		if (!c && !exclusive_focus &&
-+			(node = wlr_scene_node_at(&layers[LyrBottom]->node, cursor->x, cursor->y, NULL, NULL)) &&
-+			(buffer = wlr_scene_buffer_from_node(node)) && buffer == selmon->scene_buffer) {
-+			cx = (cursor->x - selmon->m.x) * selmon->wlr_output->scale;
-+			do
-+				x += TEXTW(selmon, tags[i]);
-+			while (cx >= x && ++i < LENGTH(tags));
-+			if (i < LENGTH(tags)) {
-+				click = ClkTagBar;
-+				arg.ui = 1 << i;
-+			} else if (cx < x + TEXTW(selmon, selmon->ltsymbol))
-+				click = ClkLtSymbol;
-+			else if (cx > selmon->b.width - (TEXTW(selmon, stext) - selmon->lrpad + 2)) {
-+				click = ClkStatus;
-+			} else
-+				click = ClkTitle;
-+		}
-+
- 		/* Change focus if the button was _pressed_ over a client */
- 		xytonode(cursor->x, cursor->y, NULL, &c, NULL, NULL, NULL);
--		if (c && (!client_is_unmanaged(c) || client_wants_focus(c)))
-+		if (click == ClkClient && (!client_is_unmanaged(c) || client_wants_focus(c)))
- 			focusclient(c, 1);
- 
- 		keyboard = wlr_seat_get_keyboard(seat);
- 		mods = keyboard ? wlr_keyboard_get_modifiers(keyboard) : 0;
- 		for (b = buttons; b < END(buttons); b++) {
--			if (CLEANMASK(mods) == CLEANMASK(b->mod) &&
--					event->button == b->button && b->func) {
--				b->func(&b->arg);
-+			if (CLEANMASK(mods) == CLEANMASK(b->mod) && event->button == b->button && click == b->click && b->func) {
-+				b->func(click == ClkTagBar && b->arg.i == 0 ? &arg : &b->arg);
- 				return;
- 			}
- 		}
+
 @@ -697,6 +848,8 @@ cleanup(void)
  	/* Destroy after the wayland display (when the monitors are already destroyed)
  	   to avoid destroying them with an invalid scene output. */
