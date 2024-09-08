@@ -22,7 +22,7 @@ static uint32_t colors[][3]                = {
 	/*               fg          bg          border    */
 	[SchemeNorm] = { 0x93a1a1ff, 0x000000ff, 0x444444ff },
 	[SchemeSel]  = { 0xeeeeeeff, 0x000000ff, 0x93a1a1ff },
-  [SchemeUrg]  = { 0,          0,          0x770000ff },
+  	[SchemeUrg]  = { 0,          0,          0x770000ff },
 };
 
 /* tagging - TAGCOUNT must be no greater than 31 */
@@ -252,10 +252,10 @@ static const Button buttons[] = {
 	{ ClkStatus,   0,      					BTN_LEFT,   spawn,          {.v = termcmd} },
 	{ ClkClient,   MODKEY, 					BTN_LEFT,   moveresize,     {.ui = CurMove} },
 	{ ClkClient,   MODKEY, 					BTN_MIDDLE, togglefloating, {0} },
-	{ ClkClient,   MODKEY|WLR_MODIFIER_CTRL,BTN_LEFT,   moveresize, {.ui = CurResize} },
+	{ ClkClient,   MODKEY|WLR_MODIFIER_CTRL,BTN_LEFT,   moveresize, 	{.ui = CurResize} },
 	{ ClkTagBar,   0,      					BTN_LEFT,   view,           {0} },
-	{ ClkTagBar,   0,      					BTN_RIGHT,  toggleview,     {0} },
-	{ ClkTagBar,   WLR_MODIFIER_SHIFT,		BTN_LEFT,   movetagandview, {0} },
-	{ ClkTagBar,   MODKEY, 					BTN_RIGHT,  toggletag,      {0} },
+	{ ClkTagBar,   0,      					BTN_MIDDLE, toggleview,     {0} },
+	{ ClkTagBar,   0,						BTN_RIGHT,  movetagandview, {0} },
+	{ ClkTagBar,   MODKEY, 					BTN_LEFT,  toggletag,      	{0} },
 };
 
