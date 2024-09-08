@@ -169,14 +169,14 @@ static const Key keys[] = {
     { MODKEY,              XKB_KEY_l,        spawn,          {.v = logoutcmd } },
     { MODKEY,              XKB_KEY_u,        spawn,          SHCMD("/home/daniel/scripts/prompt.sh && kill -64 $(pidof someblocks)") },
     { MODKEY,              XKB_KEY_v,        spawn,          {.v = cliphistcmd } },
-	  { MODKEY,              XKB_KEY_a,        spawn,          SHCMD("/home/daniel/scripts/dmenu_man") },
+	{ MODKEY,              XKB_KEY_a,        spawn,          SHCMD("/home/daniel/scripts/dmenu_man") },
     { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_F,  togglefullscreen, {0} },
     { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_S,  spawn,          {.v = screenshotcmd }  },
     { MODKEY,              XKB_KEY_q,        killclient,       {0} },
 
 	/* Volume and Brightness Controls */
-  { 0,   XKB_KEY_XF86AudioMute ,             spawn,  SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && kill -44 $(pidof someblocks)") },
-  { 0,   XKB_KEY_XF86AudioMicMute ,          spawn,  SHCMD("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && kill -49 $(pidof someblocks)") },
+  	{ 0,   XKB_KEY_XF86AudioMute ,             spawn,  SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && kill -44 $(pidof someblocks)") },
+  	{ 0,   XKB_KEY_XF86AudioMicMute ,          spawn,  SHCMD("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && kill -49 $(pidof someblocks)") },
 	{ 0,   XKB_KEY_XF86AudioLowerVolume ,      spawn,  SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && kill -44 $(pidof someblocks)") },
 	{ 0,   XKB_KEY_XF86AudioRaiseVolume ,      spawn,  SHCMD("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+ && kill -44 $(pidof someblocks)") },
 	{ 0,   XKB_KEY_XF86MonBrightnessUp,        spawn,  SHCMD("brightnessctl set +5% && kill -54 $(pidof someblocks)") },
@@ -196,7 +196,7 @@ static const Key keys[] = {
 	{ MODKEY|WLR_MODIFIER_CTRL,  XKB_KEY_Right,      setmfact,       {.f = +0.05f} },
 	{ MODKEY|WLR_MODIFIER_CTRL,  XKB_KEY_Left,       setmfact,       {.f = -0.05f} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Return,     zoom,           {0} },
-  { MODKEY,                    XKB_KEY_Tab,        view,           {0} },
+  	{ MODKEY,                    XKB_KEY_Tab,        view,           {0} },
 	{ MODKEY,                    XKB_KEY_q,          killclient,     {0} },
 	{ MODKEY,                    XKB_KEY_t,          setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                    XKB_KEY_f,          setlayout,      {.v = &layouts[1]} },
@@ -211,7 +211,7 @@ static const Key keys[] = {
 	TAGKEYS(          XKB_KEY_4, XKB_KEY_dollar,                     3),
 	TAGKEYS(          XKB_KEY_5, XKB_KEY_percent,                    4),
 	TAGKEYS(          XKB_KEY_6, XKB_KEY_ampersand,                  5),
-  TAGKEYS(          XKB_KEY_7, XKB_KEY_slash,                      6),
+  	TAGKEYS(          XKB_KEY_7, XKB_KEY_slash,                      6),
 	TAGKEYS(          XKB_KEY_8, XKB_KEY_parenleft,                  7),
 	TAGKEYS(          XKB_KEY_9, XKB_KEY_parenright,                 8),
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Q,          spawn,           SHCMD("pkill -x someblocks && pkill -x dwl") },
@@ -229,7 +229,7 @@ static const Key keys[] = {
 static const Key lockedkeys[] = {
 	/* Note that Shift changes certain key codes: c -> C, 2 -> at, etc. */
 	/* modifier                  key                 function        argument */
-  { 0,   XKB_KEY_XF86AudioMute ,             spawn,  SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && kill -44 $(pidof someblocks)") },
+  	{ 0,   XKB_KEY_XF86AudioMute ,             spawn,  SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && kill -44 $(pidof someblocks)") },
 	{ 0,   XKB_KEY_XF86AudioLowerVolume ,      spawn,  SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && kill -44 $(pidof someblocks)") },
 	{ 0,   XKB_KEY_XF86AudioRaiseVolume ,      spawn,  SHCMD("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+ && kill -44 $(pidof someblocks)") },
 	{ 0,   XKB_KEY_XF86MonBrightnessUp,        spawn,  SHCMD("brightnessctl set +5% && kill -54 $(pidof someblocks)") },
@@ -245,17 +245,17 @@ static const Key lockedkeys[] = {
 
 
 static const Button buttons[] = {
-	{ ClkLtSymbol, 0,      BTN_LEFT,   setlayout,      {.v = &layouts[0]} },
-	{ ClkLtSymbol, 0,      BTN_RIGHT,  setlayout,      {.v = &layouts[2]} },
-	{ ClkLtSymbol, 0,      BTN_MIDDLE, setlayout,      {.v = &layouts[1]} },
-	{ ClkTitle,    0,      BTN_MIDDLE, zoom,           {0} },
-	{ ClkStatus,   0,      BTN_MIDDLE, spawn,          {.v = termcmd} },
-	{ ClkClient,   MODKEY, BTN_LEFT,   moveresize,     {.ui = CurMove} },
-	{ ClkClient,   MODKEY, BTN_MIDDLE, togglefloating, {0} },
+	{ ClkLtSymbol, 0,      					BTN_LEFT,   setlayout,      {.v = &layouts[0]} },
+	{ ClkLtSymbol, 0,      					BTN_RIGHT,  setlayout,      {.v = &layouts[2]} },
+	{ ClkLtSymbol, 0,      					BTN_MIDDLE, setlayout,      {.v = &layouts[1]} },
+	{ ClkTitle,    0,      					BTN_LEFT,   zoom,           {0} },
+	{ ClkStatus,   0,      					BTN_LEFT,   spawn,          {.v = termcmd} },
+	{ ClkClient,   MODKEY, 					BTN_LEFT,   moveresize,     {.ui = CurMove} },
+	{ ClkClient,   MODKEY, 					BTN_MIDDLE, togglefloating, {0} },
 	{ ClkClient,   MODKEY|WLR_MODIFIER_CTRL,BTN_LEFT,   moveresize, {.ui = CurResize} },
-	{ ClkTagBar,   0,      BTN_LEFT,   view,           {0} },
-	{ ClkTagBar,   0,      BTN_RIGHT,  toggleview,     {0} },
-	{ ClkTagBar,   MODKEY, BTN_LEFT,   tag,            {0} },
-	{ ClkTagBar,   MODKEY, BTN_RIGHT,  toggletag,      {0} },
+	{ ClkTagBar,   0,      					BTN_LEFT,   view,           {0} },
+	{ ClkTagBar,   0,      					BTN_RIGHT,  toggleview,     {0} },
+	{ ClkTagBar,   MODKEY, 					BTN_LEFT,   movetagandview, {0} },
+	{ ClkTagBar,   MODKEY, 					BTN_RIGHT,  toggletag,      {0} },
 };
 
