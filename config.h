@@ -255,7 +255,7 @@ static const Button buttons[] = {
 	{ ClkClient,   MODKEY|WLR_MODIFIER_CTRL,BTN_LEFT,   moveresize, {.ui = CurResize} },
 	{ ClkTagBar,   0,      					BTN_LEFT,   view,           {0} },
 	{ ClkTagBar,   0,      					BTN_RIGHT,  toggleview,     {0} },
-	{ ClkTagBar,   MODKEY, 					BTN_LEFT,   movetagandview, {0} },
+	{ ClkTagBar,   WLR_MODIFIER_SHIFT,		BTN_LEFT,   movetagandview, {0} },
 	{ ClkTagBar,   MODKEY, 					BTN_RIGHT,  toggletag,      {0} },
 };
 
