@@ -1615,7 +1615,6 @@ drawbar(Monitor *m)
   		}
 	}
 
-
 	wlr_scene_buffer_set_dest_size(m->scene_buffer,
 		m->b.real_width, m->b.real_height);
 	wlr_scene_node_set_position(&m->scene_buffer->node, m->m.x,
