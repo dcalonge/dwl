@@ -1,22 +1,22 @@
-**My dwl fork with the following patches**:
+**My dwl 0.7 fork with the following patches**:
 
-  -alwayscenter
+  - alwayscenter
   
-  -barheight
+  - barheight
   
-  -lockedkeys
+  - lockedkeys
   
-  -relative-mouse-resize
+  - relative-mouse-resize
   
-  -warpcursor
+  - warpcursor
 
-  -bar-0.7
+  - bar
   
-  -gaps
+  - gaps
   
-  -pertag
+  - pertag
   
-  -swapandfocusdir
+  - swapandfocusdir
 
   **Screenshot**:
   
