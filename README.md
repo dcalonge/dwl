@@ -1,4 +1,4 @@
-**My dwl 0.7 fork with the following patches**:
+**My dwl 0.7 fork with the following patches:**
 
   - alwayscenter
   
@@ -18,6 +18,6 @@
   
   - swapandfocusdir
 
-  **Screenshot**:
+  **Screenshot:**
   
   ![image](https://github.com/user-attachments/assets/f4b51318-730d-4139-ae2c-6dcc32200424)
