@@ -10,7 +10,7 @@ static const int smartgaps                 = 0;  /* 1 means no outer gap when th
 static int gaps                            = 1;  /* 1 means gaps between windows are added */
 static const unsigned int gappx            = 8; /* gap pixel between windows */
 static const unsigned int borderpx         = 2;  /* border pixel of windows */
-static const int user_bh		               = 24; /* 0 means that dwl will calculate barheight, >= 1 means dwl will use user_bh as the bar height. */
+static const int user_bh		           = 24; /* 0 means that dwl will calculate barheight, >= 1 means dwl will use user_bh as the bar height. */
 static const int showbar                   = 1; /* 0 means no bar */
 static const int topbar                    = 1; /* 0 means bottom bar */
 static const char *fonts[]                 = {"JetbrainsMono Nerd Font:size=11"};
@@ -156,7 +156,7 @@ static const char *cliphistcmd[] = { "/home/daniel/scripts/cliphist-rofi", NULL 
 static const Key keys[] = {
 	/* Note that Shift changes certain key codes: c -> C, 2 -> at, etc. */
 	/* modifier                  key                 function        argument */
-	{ MODKEY,                XKB_KEY_Return,   spawn,          {.v = termcmd } },
+	{ MODKEY,              XKB_KEY_Return,   spawn,          {.v = termcmd } },
     { MODKEY,              XKB_KEY_b,        spawn,          {.v = browsercmd } },
     { MODKEY,              XKB_KEY_h,        spawn,          {.v = btopcmd } },
     { MODKEY,              XKB_KEY_y,        spawn,          {.v = yazicmd } },
