@@ -249,7 +249,7 @@ static const Button buttons[] = {
 	{ ClkLtSymbol, 0,      					BTN_RIGHT,  setlayout,      {.v = &layouts[2]} },
 	{ ClkLtSymbol, 0,      					BTN_MIDDLE, setlayout,      {.v = &layouts[1]} },
 	{ ClkTitle,    0,      					BTN_LEFT,   zoom,           {0} },
-	{ ClkStatus,   0,      					BTN_LEFT,   spawn,          {.v = termcmd} },
+	{ ClkStatus,   0,      					BTN_LEFT,   spawn,          SHCMD("bemenu-run") },
 	{ ClkClient,   MODKEY, 					BTN_LEFT,   moveresize,     {.ui = CurMove} },
 	{ ClkClient,   MODKEY, 					BTN_MIDDLE, togglefloating, {0} },
 	{ ClkClient,   MODKEY|WLR_MODIFIER_CTRL,BTN_LEFT,   moveresize, 	{.ui = CurResize} },
