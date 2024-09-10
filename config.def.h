@@ -8,7 +8,7 @@ static const int sloppyfocus               = 1;  /* focus follows mouse */
 static const int bypass_surface_visibility = 0;  /* 1 means idle inhibitors will disable idle tracking even if it's surface isn't visible  */
 static const int smartgaps                 = 0;  /* 1 means no outer gap when there is only one window */
 static int gaps                            = 1;  /* 1 means gaps between windows are added */
-static const unsigned int gappx            = 5; /* gap pixel between windows */
+static const unsigned int gappx            = 8; /* gap pixel between windows */
 static const unsigned int borderpx         = 2;  /* border pixel of windows */
 static const int user_bh		               = 24; /* 0 means that dwl will calculate barheight, >= 1 means dwl will use user_bh as the bar height. */
 static const int showbar                   = 1; /* 0 means no bar */
@@ -167,7 +167,7 @@ static const Key keys[] = {
     { MODKEY,              XKB_KEY_c,        spawn,          {.v = codecmd } },
     { MODKEY,              XKB_KEY_d,        spawn,          {.v = dmenucmd } },
     { MODKEY,              XKB_KEY_l,        spawn,          {.v = logoutcmd } },
-    { MODKEY,              XKB_KEY_u,        spawn,          SHCMD("/home/daniel/scripts/prompt.sh && kill -64 $(pidof someblocks)") },
+    { MODKEY,              XKB_KEY_u,        spawn,          SHCMD("/home/daniel/scripts/prompt.sh") },
     { MODKEY,              XKB_KEY_v,        spawn,          {.v = cliphistcmd } },
 	{ MODKEY,              XKB_KEY_a,        spawn,          SHCMD("/home/daniel/scripts/dmenu_man") },
     { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_F,  togglefullscreen, {0} },
