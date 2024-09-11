@@ -222,7 +222,7 @@ struct Monitor {
 	struct wlr_box w; /* window area, layout-relative */
 	struct wl_list layers[4]; /* LayerSurface.link */
 	const Layout *lt[2];
-  Pertag *pertag;
+  	Pertag *pertag;
 	int gaps;
 	unsigned int seltags;
 	unsigned int sellt;
