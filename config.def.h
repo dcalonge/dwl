@@ -36,7 +36,7 @@ static const Rule rules[] = {
 	/* app_id             title           tags mask     isfloating   monitor */
 	/* examples: */
 	{ NULL,              "Open File",     0,            1,           -1 },
-  { NULL,              "Open Folder",   0,            1,           -1 },
+  	{ NULL,              "Open Folder",   0,            1,           -1 },
 };
 
 /* layout(s) */
@@ -55,21 +55,15 @@ static const Layout layouts[] = {
 /* NOTE: ALWAYS add a fallback rule, even if you are completely sure it won't be used */
 static const MonitorRule monrules[] = {
 	/* name       mfact  nmaster scale layout       rotate/reflect                x    y */
-	/* example of a HiDPI laptop monitor:
-	{ "eDP-1",    0.5f,  1,      2,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   -1,  -1 },
-	*/
+
 	/* defaults */
 	{ NULL,       0.55f, 1,      1,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   -1,  -1 },
 };
 
 /* keyboard */
 static const struct xkb_rule_names xkb_rules = {
-	/* can specify fields: rules, model, layout, variant, options */
-	/* example:
-	.options = "ctrl:nocaps",
-	*/
 	.options = NULL,
-  .layout = "es",
+  	.layout = "es",
 };
 
 static const int repeat_rate = 25;
@@ -121,7 +115,6 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 /* If you want to use the windows key for MODKEY, use WLR_MODIFIER_LOGO */
 #define MODKEY WLR_MODIFIER_LOGO
 
-
 void movetagandview(const Arg *arg) {
     tag(arg);
     view(arg);
@@ -171,13 +164,13 @@ static const Key keys[] = {
     { MODKEY,              XKB_KEY_v,        spawn,          {.v = cliphistcmd } },
 	{ MODKEY,              XKB_KEY_a,        spawn,          SHCMD("/home/daniel/scripts/dmenu_man") },
     { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_F,  togglefullscreen, {0} },
-    { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_S,  spawn,          {.v = screenshotcmd }  },
+	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_S,  spawn,          {.v = screenshotcmd }  },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_W,  spawn,          SHCMD("killall swaybg && swaybg -i /home/daniel/Pictures/wallpapers/$(ls /home/daniel/Pictures/wallpapers | sort -R | tail -1)") },
     { MODKEY,              XKB_KEY_q,        killclient,       {0} },
 
 	/* Volume and Brightness Controls */
-  	{ 0,   XKB_KEY_XF86AudioMute ,             spawn,  SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && kill -44 $(pidof someblocks)") },
-  	{ 0,   XKB_KEY_XF86AudioMicMute ,          spawn,  SHCMD("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && kill -49 $(pidof someblocks)") },
+	{ 0,   XKB_KEY_XF86AudioMute ,             spawn,  SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && kill -44 $(pidof someblocks)") },
+	{ 0,   XKB_KEY_XF86AudioMicMute ,          spawn,  SHCMD("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && kill -49 $(pidof someblocks)") },
 	{ 0,   XKB_KEY_XF86AudioLowerVolume ,      spawn,  SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && kill -44 $(pidof someblocks)") },
 	{ 0,   XKB_KEY_XF86AudioRaiseVolume ,      spawn,  SHCMD("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+ && kill -44 $(pidof someblocks)") },
 	{ 0,   XKB_KEY_XF86MonBrightnessUp,        spawn,  SHCMD("brightnessctl set +5% && kill -54 $(pidof someblocks)") },
@@ -223,7 +216,6 @@ static const Key keys[] = {
 };
 
 static const Key lockedkeys[] = {
-	/* Note that Shift changes certain key codes: c -> C, 2 -> at, etc. */
 	/* modifier                  key                 function        argument */
   	{ 0,   XKB_KEY_XF86AudioMute ,             spawn,  SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && kill -44 $(pidof someblocks)") },
 	{ 0,   XKB_KEY_XF86AudioLowerVolume ,      spawn,  SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && kill -44 $(pidof someblocks)") },
@@ -251,4 +243,3 @@ static const Button buttons[] = {
 	{ ClkTagBar,   0,						BTN_RIGHT,  movetagandview, {0} },
 	{ ClkTagBar,   MODKEY, 					BTN_LEFT,  toggletag,      	{0} },
 };
-
