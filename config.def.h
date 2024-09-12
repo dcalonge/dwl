@@ -231,8 +231,8 @@ static const Key lockedkeys[] = {
 
 static const Button buttons[] = {
 	{ ClkLtSymbol, 0,      					BTN_LEFT,   setlayout,      {.v = &layouts[0]} },
-	{ ClkLtSymbol, 0,      					BTN_RIGHT,  setlayout,      {.v = &layouts[2]} },
-	{ ClkLtSymbol, 0,      					BTN_MIDDLE, setlayout,      {.v = &layouts[1]} },
+	{ ClkLtSymbol, 0,      					BTN_RIGHT,  setlayout,      {.v = &layouts[1]} },
+	{ ClkLtSymbol, 0,      					BTN_MIDDLE, setlayout,      {.v = &layouts[2]} },
 	{ ClkTitle,    0,      					BTN_LEFT,   zoom,           {0} },
 	{ ClkStatus,   0,      					BTN_LEFT,   spawn,          {.v = dmenucmd} },
 	{ ClkClient,   MODKEY, 					BTN_LEFT,   moveresize,     {.ui = CurMove} },
