@@ -165,7 +165,7 @@ static const Key keys[] = {
 	{ MODKEY,              XKB_KEY_a,        spawn,          SHCMD("/home/daniel/scripts/dmenu_man") },
     { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_F,  togglefullscreen, {0} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_S,  spawn,          {.v = screenshotcmd }  },
-	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_W,  spawn,          SHCMD("killall swaybg && swaybg -i /home/daniel/Pictures/wallpapers/$(ls /home/daniel/Pictures/wallpapers | sort -R | tail -1)") },
+	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_W,  spawn,          SHCMD("/home/daniel/scripts/background.sh") },
     { MODKEY,              XKB_KEY_q,        killclient,       {0} },
 
 	/* Volume and Brightness Controls */
