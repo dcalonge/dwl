@@ -139,7 +139,6 @@ static const char *yazicmd[]  = { "foot", "-c", "/home/daniel/.config/foot/foot_
 static const char *pavucontrolcmd[] = { "pavucontrol", NULL };
 static const char *thunarcmd[]  = { "thunar", NULL };
 static const char *codecmd[]  = { "code", NULL };
-static const char *dmenucmd[] = { "j4-dmenu-desktop", "--no-generic", "--skip-i3-exec-check", "-f", "--dmenu", "bemenu", "-t", "foot", NULL };
 static const char *logoutcmd[]  = { "/home/daniel/scripts/dmenu_logout_dwl.sh", NULL };
 static const char *cliphistcmd[] = { "/home/daniel/scripts/cliphist-rofi", NULL };
 
@@ -155,10 +154,10 @@ static const Key keys[] = {
     { MODKEY,              XKB_KEY_y,        spawn,          {.v = yazicmd } },
     { MODKEY,              XKB_KEY_n,        spawn,          {.v = nvimcmd } },
     { MODKEY,              XKB_KEY_p,        spawn,          {.v = pavucontrolcmd } },
-    { MODKEY,              XKB_KEY_w,        spawn,          SHCMD("networkmanager_dmenu") },
+    { MODKEY,              XKB_KEY_w,        spawn,          SHCMD("killall bemenu || networkmanager_dmenu") },
     { MODKEY,              XKB_KEY_e,        spawn,          {.v = thunarcmd } },
     { MODKEY,              XKB_KEY_c,        spawn,          {.v = codecmd } },
-    { MODKEY,              XKB_KEY_d,        spawn,          {.v = dmenucmd } },
+    { MODKEY,              XKB_KEY_d,        spawn,          SHCMD("killall bemenu || j4-dmenu-desktop --no-generic --skip-i3-exec-check -b --dmenu bemenu -t foot") },
     { MODKEY,              XKB_KEY_l,        spawn,          {.v = logoutcmd } },
     { MODKEY,              XKB_KEY_u,        spawn,          SHCMD("/home/daniel/scripts/prompt.sh") },
     { MODKEY,              XKB_KEY_v,        spawn,          {.v = cliphistcmd } },
@@ -234,7 +233,7 @@ static const Button buttons[] = {
 	{ ClkLtSymbol, 0,      					BTN_RIGHT,  setlayout,      {.v = &layouts[1]} },
 	{ ClkLtSymbol, 0,      					BTN_MIDDLE, setlayout,      {.v = &layouts[2]} },
 	{ ClkTitle,    0,      					BTN_LEFT,   zoom,           {0} },
-	{ ClkStatus,   0,      					BTN_LEFT,   spawn,          {.v = dmenucmd} },
+	{ ClkStatus,   0,      					BTN_LEFT,   spawn,          SHCMD("killall bemenu || j4-dmenu-desktop --no-generic --skip-i3-exec-check -b --dmenu bemenu -t foot") },
 	{ ClkClient,   MODKEY, 					BTN_LEFT,   moveresize,     {.ui = CurMove} },
 	{ ClkClient,   MODKEY, 					BTN_MIDDLE, togglefloating, {0} },
 	{ ClkClient,   MODKEY|WLR_MODIFIER_CTRL,BTN_LEFT,   moveresize, 	{.ui = CurResize} },
