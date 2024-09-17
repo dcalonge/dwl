@@ -157,6 +157,7 @@ static const Key keys[] = {
     { MODKEY,              XKB_KEY_w,        spawn,          SHCMD("killall bemenu || networkmanager_dmenu") },
     { MODKEY,              XKB_KEY_e,        spawn,          {.v = thunarcmd } },
     { MODKEY,              XKB_KEY_c,        spawn,          {.v = codecmd } },
+    { MODKEY,              XKB_KEY_z,        spawn,          SHCMD("zeditor") },
     { MODKEY,              XKB_KEY_d,        spawn,          SHCMD("killall bemenu || j4-dmenu-desktop --no-generic --skip-i3-exec-check -b --dmenu bemenu -t foot") },
     { MODKEY,              XKB_KEY_l,        spawn,          {.v = logoutcmd } },
     { MODKEY,              XKB_KEY_u,        spawn,          SHCMD("/home/daniel/scripts/prompt.sh && kill -64 $(pidof someblocks)") },
