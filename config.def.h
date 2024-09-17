@@ -159,7 +159,7 @@ static const Key keys[] = {
     { MODKEY,              XKB_KEY_c,        spawn,          {.v = codecmd } },
     { MODKEY,              XKB_KEY_d,        spawn,          SHCMD("killall bemenu || j4-dmenu-desktop --no-generic --skip-i3-exec-check -b --dmenu bemenu -t foot") },
     { MODKEY,              XKB_KEY_l,        spawn,          {.v = logoutcmd } },
-    { MODKEY,              XKB_KEY_u,        spawn,          SHCMD("/home/daniel/scripts/prompt.sh") },
+    { MODKEY,              XKB_KEY_u,        spawn,          SHCMD("/home/daniel/scripts/prompt.sh && kill -64 $(pidof someblocks)") },
     { MODKEY,              XKB_KEY_v,        spawn,          {.v = cliphistcmd } },
 	{ MODKEY,              XKB_KEY_a,        spawn,          SHCMD("/home/daniel/scripts/dmenu_man") },
     { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_F,  togglefullscreen, {0} },
