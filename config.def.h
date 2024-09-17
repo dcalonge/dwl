@@ -48,15 +48,9 @@ static const Layout layouts[] = {
 };
 
 /* monitors */
-/* (x=-1, y=-1) is reserved as an "autoconfigure" monitor position indicator
- * WARNING: negative values other than (-1, -1) cause problems with Xwayland clients
- * https://gitlab.freedesktop.org/xorg/xserver/-/issues/899
-*/
 /* NOTE: ALWAYS add a fallback rule, even if you are completely sure it won't be used */
 static const MonitorRule monrules[] = {
 	/* name       mfact  nmaster scale layout       rotate/reflect                x    y */
-
-	/* defaults */
 	{ NULL,       0.55f, 1,      1,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL,   -1,  -1 },
 };
 
@@ -77,42 +71,14 @@ static const int natural_scrolling = 1;
 static const int disable_while_typing = 1;
 static const int left_handed = 0;
 static const int middle_button_emulation = 0;
-/* You can choose between:
-LIBINPUT_CONFIG_SCROLL_NO_SCROLL
-LIBINPUT_CONFIG_SCROLL_2FG
-LIBINPUT_CONFIG_SCROLL_EDGE
-LIBINPUT_CONFIG_SCROLL_ON_BUTTON_DOWN
-*/
 static const enum libinput_config_scroll_method scroll_method = LIBINPUT_CONFIG_SCROLL_2FG;
-
-/* You can choose between:
-LIBINPUT_CONFIG_CLICK_METHOD_NONE
-LIBINPUT_CONFIG_CLICK_METHOD_BUTTON_AREAS
-LIBINPUT_CONFIG_CLICK_METHOD_CLICKFINGER
-*/
 static const enum libinput_config_click_method click_method = LIBINPUT_CONFIG_CLICK_METHOD_BUTTON_AREAS;
-
-/* You can choose between:
-LIBINPUT_CONFIG_SEND_EVENTS_ENABLED
-LIBINPUT_CONFIG_SEND_EVENTS_DISABLED
-LIBINPUT_CONFIG_SEND_EVENTS_DISABLED_ON_EXTERNAL_MOUSE
-*/
 static const uint32_t send_events_mode = LIBINPUT_CONFIG_SEND_EVENTS_ENABLED;
-
-/* You can choose between:
-LIBINPUT_CONFIG_ACCEL_PROFILE_FLAT
-LIBINPUT_CONFIG_ACCEL_PROFILE_ADAPTIVE
-*/
 static const enum libinput_config_accel_profile accel_profile = LIBINPUT_CONFIG_ACCEL_PROFILE_ADAPTIVE;
 static const double accel_speed = 0.0;
-
-/* You can choose between:
-LIBINPUT_CONFIG_TAP_MAP_LRM -- 1/2/3 finger tap maps to left/right/middle
-LIBINPUT_CONFIG_TAP_MAP_LMR -- 1/2/3 finger tap maps to left/middle/right
-*/
 static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TAP_MAP_LRM;
 
-/* If you want to use the windows key for MODKEY, use WLR_MODIFIER_LOGO */
+/* Keybindings */
 #define MODKEY WLR_MODIFIER_LOGO
 
 void movetagandview(const Arg *arg) {
@@ -126,12 +92,10 @@ void movetagandview(const Arg *arg) {
 	{ MODKEY|WLR_MODIFIER_SHIFT, SKEY,           movetagandview,  {.ui = 1 << TAG} }, \
 	{ MODKEY|WLR_MODIFIER_CTRL|WLR_MODIFIER_SHIFT,SKEY,toggletag, {.ui = 1 << TAG} }
 
-/* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
 static const char *termcmd[]  = { "foot", NULL };
-static const char *screenshotcmd[] = { "/home/daniel/scripts/screenshot_river.sh", NULL };
 static const char *browsercmd[]  = { "firefox", NULL };
 static const char *btopcmd[]  = { "foot", "-c", "/home/daniel/.config/foot/foot_no_pad.ini", "-e", "btop", NULL };
 static const char *nvimcmd[]  = { "foot", "-c", "/home/daniel/.config/foot/foot_no_pad.ini", "-e", "nvim", NULL };
@@ -139,9 +103,6 @@ static const char *yazicmd[]  = { "foot", "-c", "/home/daniel/.config/foot/foot_
 static const char *pavucontrolcmd[] = { "pavucontrol", NULL };
 static const char *thunarcmd[]  = { "thunar", NULL };
 static const char *codecmd[]  = { "code", NULL };
-static const char *logoutcmd[]  = { "/home/daniel/scripts/dmenu_logout_dwl.sh", NULL };
-static const char *cliphistcmd[] = { "/home/daniel/scripts/cliphist-rofi", NULL };
-
 
 /* Keys */
 
@@ -159,14 +120,14 @@ static const Key keys[] = {
     { MODKEY,              XKB_KEY_c,        spawn,          {.v = codecmd } },
     { MODKEY,              XKB_KEY_z,        spawn,          SHCMD("zeditor") },
     { MODKEY,              XKB_KEY_d,        spawn,          SHCMD("killall bemenu || j4-dmenu-desktop --no-generic --skip-i3-exec-check -b --dmenu bemenu -t foot") },
-    { MODKEY,              XKB_KEY_l,        spawn,          {.v = logoutcmd } },
-    { MODKEY,              XKB_KEY_u,        spawn,          SHCMD("/home/daniel/scripts/prompt.sh && kill -64 $(pidof someblocks)") },
-    { MODKEY,              XKB_KEY_v,        spawn,          {.v = cliphistcmd } },
+	{ MODKEY,              XKB_KEY_l,        spawn,          SHCMD("/home/daniel/scripts/dmenu_logout_dwl.sh") },
+	{ MODKEY,              XKB_KEY_u,        spawn,          SHCMD("/home/daniel/scripts/prompt.sh && kill -64 $(pidof someblocks)") },
+	{ MODKEY,              XKB_KEY_v,        spawn,          SHCMD("/home/daniel/scripts/cliphist-rofi") },
 	{ MODKEY,              XKB_KEY_a,        spawn,          SHCMD("/home/daniel/scripts/dmenu_man") },
     { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_F,  togglefullscreen, {0} },
-	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_S,  spawn,          {.v = screenshotcmd }  },
+	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_S,  spawn,          SHCMD("/home/daniel/scripts/screenshot_river.sh") },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_W,  spawn,          SHCMD("/home/daniel/scripts/background.sh") },
-    { MODKEY,              XKB_KEY_q,        killclient,       {0} },
+    { MODKEY,              XKB_KEY_q,        killclient,     {0} },
 
 	/* Volume and Brightness Controls */
 	{ 0,   XKB_KEY_XF86AudioMute ,             spawn,  SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && kill -44 $(pidof someblocks)") },
@@ -223,7 +184,6 @@ static const Key lockedkeys[] = {
 	{ 0,   XKB_KEY_XF86MonBrightnessUp,        spawn,  SHCMD("brightnessctl set +5% && kill -54 $(pidof someblocks)") },
 	{ 0,   XKB_KEY_XF86MonBrightnessDown,      spawn,  SHCMD("brightnessctl set 5%- && kill -54 $(pidof someblocks)") },
 
-#define CHVT(n) { WLR_MODIFIER_CTRL|WLR_MODIFIER_ALT,XKB_KEY_XF86Switch_VT_##n, chvt, {.ui = (n)} }
 	CHVT(1), CHVT(2), CHVT(3), CHVT(4), CHVT(5), CHVT(6),
 	CHVT(7), CHVT(8), CHVT(9), CHVT(10), CHVT(11), CHVT(12),
 };
