@@ -89,7 +89,7 @@
 
     /* commands */
     static const char *termcmd[]  = { "foot", NULL };
-    static const char *browsercmd[]  = { "firefox", NULL };
+    static const char *browsercmd[]  = { "chromium", NULL };
     static const char *btopcmd[]  = { "foot", "-c", "/home/daniel/.config/foot/foot_no_pad.ini", "-e", "btop", NULL };
     static const char *nvimcmd[]  = { "foot", "-c", "/home/daniel/.config/foot/foot_no_pad.ini", "-e", "nvim", NULL };
     static const char *yazicmd[]  = { "foot", "-c", "/home/daniel/.config/foot/foot_no_pad.ini", "-e", "yazi", NULL };
