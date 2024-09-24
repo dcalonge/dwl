@@ -35,6 +35,7 @@
     	/* app_id             title           tags mask     isfloating   monitor */
         { NULL,              "Open File",     0,            1,           -1 },
         { NULL,              "Open Folder",   0,            1,           -1 },
+        { "mpv",               NULL,           0,            1,           -1 },
     };
 
 /* layout(s) */
@@ -89,7 +90,7 @@
 
     /* commands */
     static const char *termcmd[]  = { "foot", NULL };
-    static const char *browsercmd[]  = { "firefox", NULL };
+    static const char *browsercmd[]  = { "brave", NULL };
     static const char *btopcmd[]  = { "foot", "-c", "/home/daniel/.config/foot/foot_no_pad.ini", "-e", "btop", NULL };
     static const char *nvimcmd[]  = { "foot", "-c", "/home/daniel/.config/foot/foot_no_pad.ini", "-e", "nvim", NULL };
     static const char *yazicmd[]  = { "foot", "-c", "/home/daniel/.config/foot/foot_no_pad.ini", "-e", "yazi", NULL };
