@@ -36,6 +36,7 @@
         { NULL,              "Open File",     0,            1,           -1 },
         { NULL,              "Open Folder",   0,            1,           -1 },
         { "mpv",               NULL,           0,            1,           -1 },
+        { "imv",               NULL,           0,            1,           -1 },
     };
 
 /* layout(s) */
