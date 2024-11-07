@@ -123,13 +123,16 @@
         { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_W, spawn, SHCMD("/home/daniel/scripts/background.sh") },
         { MODKEY, XKB_KEY_q, killclient, {0} },
 
-        /* Volume and Brightness Controls */
+        /* Volume, Brightness and Media Controls */
         { 0, XKB_KEY_XF86AudioMute, spawn, SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && kill -44 $(pidof someblocks)") },
         { 0, XKB_KEY_XF86AudioMicMute, spawn, SHCMD("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && kill -49 $(pidof someblocks)") },
         { 0, XKB_KEY_XF86AudioLowerVolume, spawn, SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && kill -44 $(pidof someblocks)") },
         { 0, XKB_KEY_XF86AudioRaiseVolume, spawn, SHCMD("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+ && kill -44 $(pidof someblocks)") },
         { 0, XKB_KEY_XF86MonBrightnessUp, spawn, SHCMD("brightnessctl set +5% && kill -54 $(pidof someblocks)") },
         { 0, XKB_KEY_XF86MonBrightnessDown, spawn, SHCMD("brightnessctl set 5%- && kill -54 $(pidof someblocks)") },
+        { 0, XKB_KEY_XF86AudioPlay, spawn, SHCMD("playerctl play-pause") },
+        { 0, XKB_KEY_XF86AudioNext, spawn, SHCMD("playerctl next") },
+        { 0, XKB_KEY_XF86AudioPrev, spawn, SHCMD("playerctl previous") },
 
         /* Window Manager Stuff */
         { MODKEY, XKB_KEY_Left, focusdir, {.ui = 0} },
@@ -177,6 +180,9 @@
         { 0, XKB_KEY_XF86AudioRaiseVolume, spawn, SHCMD("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+ && kill -44 $(pidof someblocks)") },
         { 0, XKB_KEY_XF86MonBrightnessUp, spawn, SHCMD("brightnessctl set +5% && kill -54 $(pidof someblocks)") },
         { 0, XKB_KEY_XF86MonBrightnessDown, spawn, SHCMD("brightnessctl set 5%- && kill -54 $(pidof someblocks)") },
+        { 0, XKB_KEY_XF86AudioPlay, spawn, SHCMD("playerctl play-pause") },
+        { 0, XKB_KEY_XF86AudioNext, spawn, SHCMD("playerctl next") },
+        { 0, XKB_KEY_XF86AudioPrev, spawn, SHCMD("playerctl previous") },
 
         CHVT(1), CHVT(2), CHVT(3), CHVT(4), CHVT(5), CHVT(6),
         CHVT(7), CHVT(8), CHVT(9), CHVT(10), CHVT(11), CHVT(12),
