@@ -105,6 +105,7 @@
         /* Apps and Scripts */
         { MODKEY, XKB_KEY_Return, spawn, {.v = termcmd } },
         { MODKEY, XKB_KEY_b, spawn, {.v = browsercmd } },
+        { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_B, spawn, SHCMD("foot -e bluetuith") },
         { MODKEY, XKB_KEY_h, spawn, {.v = btopcmd } },
         { MODKEY, XKB_KEY_y, spawn, {.v = yazicmd } },
         { MODKEY, XKB_KEY_n, spawn, {.v = nvimcmd } },
