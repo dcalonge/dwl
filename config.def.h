@@ -93,9 +93,6 @@
     /* commands */
     static const char *termcmd[]  = { "foot", NULL };
     static const char *browsercmd[]  = { "firefox", NULL };
-    static const char *btopcmd[]  = { "foot", "-c", "~/.config/foot/foot_no_pad.ini", "-e", "btop", NULL };
-    static const char *nvimcmd[]  = { "foot", "-c", "~/.config/foot/foot_no_pad.ini", "-e", "nvim", NULL };
-    static const char *yazicmd[]  = { "foot", "-c", "~/.config/foot/foot_no_pad.ini", "-e", "yazi", NULL };
     static const char *pavucontrolcmd[] = { "pavucontrol", NULL };
     static const char *thunarcmd[]  = { "thunar", NULL };
     static const char *codecmd[]  = { "code", NULL };
@@ -106,9 +103,9 @@
         { MODKEY, XKB_KEY_Return, spawn, {.v = termcmd } },
         { MODKEY, XKB_KEY_b, spawn, {.v = browsercmd } },
         { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_B, spawn, SHCMD("foot -e bluetuith") },
-        { MODKEY, XKB_KEY_h, spawn, {.v = btopcmd } },
-        { MODKEY, XKB_KEY_y, spawn, {.v = yazicmd } },
-        { MODKEY, XKB_KEY_n, spawn, {.v = nvimcmd } },
+        { MODKEY, XKB_KEY_h, spawn, SHCMD("foot -c ~/.config/foot/foot_no_pad.ini -e btop") },
+        { MODKEY, XKB_KEY_y, spawn, SHCMD("foot -c ~/.config/foot/foot_no_pad.ini -e yazi") },
+        { MODKEY, XKB_KEY_n, spawn, SHCMD("foot -c ~/.config/foot/foot_no_pad.ini -e nvim") },
         { MODKEY, XKB_KEY_p, spawn, {.v = pavucontrolcmd } },
         { MODKEY, XKB_KEY_w, spawn, SHCMD("killall bemenu || networkmanager_dmenu") },
         { MODKEY, XKB_KEY_e, spawn, {.v = thunarcmd } },
