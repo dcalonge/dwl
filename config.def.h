@@ -93,9 +93,9 @@
     /* commands */
     static const char *termcmd[]  = { "foot", NULL };
     static const char *browsercmd[]  = { "firefox", NULL };
-    static const char *btopcmd[]  = { "foot", "-c", "/home/daniel/.config/foot/foot_no_pad.ini", "-e", "btop", NULL };
-    static const char *nvimcmd[]  = { "foot", "-c", "/home/daniel/.config/foot/foot_no_pad.ini", "-e", "nvim", NULL };
-    static const char *yazicmd[]  = { "foot", "-c", "/home/daniel/.config/foot/foot_no_pad.ini", "-e", "yazi", NULL };
+    static const char *btopcmd[]  = { "foot", "-c", "~/.config/foot/foot_no_pad.ini", "-e", "btop", NULL };
+    static const char *nvimcmd[]  = { "foot", "-c", "~/.config/foot/foot_no_pad.ini", "-e", "nvim", NULL };
+    static const char *yazicmd[]  = { "foot", "-c", "~/.config/foot/foot_no_pad.ini", "-e", "yazi", NULL };
     static const char *pavucontrolcmd[] = { "pavucontrol", NULL };
     static const char *thunarcmd[]  = { "thunar", NULL };
     static const char *codecmd[]  = { "code", NULL };
@@ -115,13 +115,14 @@
         { MODKEY, XKB_KEY_c, spawn, {.v = codecmd } },
         { MODKEY, XKB_KEY_z, spawn, SHCMD("zeditor") },
         { MODKEY, XKB_KEY_d, spawn, SHCMD("killall bemenu || j4-dmenu-desktop --no-generic --skip-i3-exec-check -b --dmenu bemenu -t foot") },
-        { MODKEY, XKB_KEY_l, spawn, SHCMD("killall bemenu || /home/daniel/scripts/dmenu_logout_dwl.sh") },
-        { MODKEY, XKB_KEY_u, spawn, SHCMD("killall bemenu || /home/daniel/scripts/prompt.sh && kill -64 $(pidof someblocks)") },
-        { MODKEY, XKB_KEY_v, spawn, SHCMD("killall bemenu || /home/daniel/scripts/cliphist-rofi") },
-        { MODKEY, XKB_KEY_a, spawn, SHCMD("killall bemenu || /home/daniel/scripts/dmenu_man") },
+        { MODKEY, XKB_KEY_l, spawn, SHCMD("killall bemenu || ~/scripts/dmenu_logout_dwl.sh") },
+        { MODKEY, XKB_KEY_u, spawn, SHCMD("killall bemenu || ~/scripts/prompt.sh && kill -64 $(pidof someblocks)") },
+        { MODKEY, XKB_KEY_v, spawn, SHCMD("killall bemenu || ~/scripts/cliphist-rofi") },
+        { MODKEY, XKB_KEY_a, spawn, SHCMD("killall bemenu || ~/scripts/dmenu_man") },
         { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_F, togglefullscreen, {0} },
-        { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_S, spawn, SHCMD("/home/daniel/scripts/screenshot_river.sh") },
-        { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_W, spawn, SHCMD("/home/daniel/scripts/background.sh") },
+        { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_S, spawn, SHCMD("~/scripts/screenshot_river.sh") },
+        { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_W, spawn, SHCMD("~/scripts/background.sh") },
+        { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_H, spawn, SHCMD("xdg-open ~/scripts/keybindings.html") },
         { MODKEY, XKB_KEY_q, killclient, {0} },
 
         /* Volume, Brightness and Media Controls */
