@@ -8,7 +8,7 @@
   
   - relative-mouse-resize
   
-  - warpcursor
+  - pointer-gestures-unstable-v1
 
   - bar
   
