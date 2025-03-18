@@ -94,7 +94,7 @@
     static const char *termcmd[]  = { "foot", NULL };
     static const char *browsercmd[]  = { "google-chrome-stable", "--enable-features=AcceleratedVideoEncoder,AcceleratedVideoDecodeLinuxGL,AcceleratedVideoDecodeLinuxZeroCopyGL,VaapiIgnoreDriverChecks,Vulkan,DefaultANGLEVulkan,VulkanFromANGLE,TouchpadOverscrollHistoryNavigation", "--ozone-platform-hint=auto", "--password-store=basic", NULL };
     static const char *pavucontrolcmd[] = { "pavucontrol", NULL };
-    static const char *thunarcmd[]  = { "thunar", NULL };
+    static const char *filescmd[]  = { "pcmanfm", NULL };
 
     /* Keys */
     static const Key keys[] = {
@@ -107,7 +107,7 @@
         { MODKEY, XKB_KEY_n, spawn, SHCMD("foot -c ~/.config/foot/foot_no_pad.ini -e nvim") },
         { MODKEY, XKB_KEY_p, spawn, {.v = pavucontrolcmd } },
         { MODKEY, XKB_KEY_w, spawn, SHCMD("killall bemenu || networkmanager_dmenu") },
-        { MODKEY, XKB_KEY_e, spawn, {.v = thunarcmd } },
+        { MODKEY, XKB_KEY_e, spawn, {.v = filescmd } },
         { MODKEY, XKB_KEY_d, spawn, SHCMD("killall bemenu || j4-dmenu-desktop --no-generic --skip-i3-exec-check -b --dmenu bemenu -t foot") },
         { MODKEY, XKB_KEY_l, spawn, SHCMD("killall bemenu || ~/scripts/dmenu_logout_dwl.sh") },
         { MODKEY, XKB_KEY_u, spawn, SHCMD("killall bemenu || ~/scripts/prompt.sh && kill -64 $(pidof someblocks)") },
