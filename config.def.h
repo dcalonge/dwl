@@ -95,6 +95,8 @@
     static const char *browsercmd[]  = { "google-chrome-stable", "--enable-features=AcceleratedVideoEncoder,AcceleratedVideoDecodeLinuxGL,AcceleratedVideoDecodeLinuxZeroCopyGL,VaapiIgnoreDriverChecks,Vulkan,DefaultANGLEVulkan,VulkanFromANGLE,TouchpadOverscrollHistoryNavigation", "--ozone-platform-hint=auto", "--password-store=basic", NULL };
     static const char *pavucontrolcmd[] = { "pavucontrol", NULL };
     static const char *filescmd[]  = { "pcmanfm", NULL };
+    static const char *screenshotcmd[]  = { "flameshot", "gui", NULL };
+
 
     /* Keys */
     static const Key keys[] = {
@@ -114,7 +116,7 @@
         { MODKEY, XKB_KEY_v, spawn, SHCMD("killall bemenu || ~/scripts/cliphist-rofi") },
         { MODKEY, XKB_KEY_a, spawn, SHCMD("killall bemenu || ~/scripts/dmenu_man") },
         { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_F, togglefullscreen, {0} },
-        { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_S, spawn, SHCMD("~/scripts/screenshot_river.sh") },
+        { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_S, spawn, {.v = screenshotcmd } },
         { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_W, spawn, SHCMD("~/scripts/background.sh") },
         { MODKEY, XKB_KEY_q, killclient, {0} },
 
