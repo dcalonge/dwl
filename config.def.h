@@ -36,6 +36,7 @@
     	/* app_id             title           tags mask     isfloating   monitor */
         { NULL,              "Open File",     0,            1,           -1 },
         { NULL,              "Open Folder",   0,            1,           -1 },
+        { "qalculate-gtk",              NULL,   0,            1,           -1 },
         { "mpv",               NULL,           0,            1,           -1 },
         { "imv",               NULL,           0,            1,           -1 },
     };
@@ -96,6 +97,8 @@
     static const char *pavucontrolcmd[] = { "pavucontrol", NULL };
     static const char *filescmd[]  = { "pcmanfm", NULL };
     static const char *screenshotcmd[]  = { "flameshot", "gui", NULL };
+    static const char *bluetoothcmd[]  = { "foot", "-e", "bluetuith", NULL };
+    static const char *calculatorcmd[]  = { "qalculate-gtk", NULL };
 
 
     /* Keys */
@@ -103,7 +106,7 @@
         /* Apps and Scripts */
         { MODKEY, XKB_KEY_Return, spawn, {.v = termcmd } },
         { MODKEY, XKB_KEY_b, spawn, {.v = browsercmd } },
-        { MODKEY, XKB_KEY_a, spawn, SHCMD("blueman-manager") },
+        { MODKEY, XKB_KEY_a, spawn, {.v = bluetoothcmd} },
         { MODKEY, XKB_KEY_h, spawn, SHCMD("foot -c ~/.config/foot/foot_no_pad.ini -e btop") },
         { MODKEY, XKB_KEY_y, spawn, SHCMD("foot -c ~/.config/foot/foot_no_pad.ini -e yazi") },
         { MODKEY, XKB_KEY_n, spawn, SHCMD("foot -c ~/.config/foot/foot_no_pad.ini -e nvim") },
@@ -116,6 +119,7 @@
         { MODKEY, XKB_KEY_v, spawn, SHCMD("killall bemenu || ~/scripts/cliphist-rofi") },
         { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_F, togglefullscreen, {0} },
         { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_S, spawn, {.v = screenshotcmd } },
+        { 0, XKB_KEY_XF86Calculator, spawn, {.v = calculatorcmd } },
         { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_W, spawn, SHCMD("~/scripts/background.sh") },
         { MODKEY, XKB_KEY_q, killclient, {0} },
 
