@@ -92,7 +92,7 @@
 
     /* commands */
     static const char *termcmd[]  = { "foot", NULL };
-    static const char *browsercmd[]  = { "google-chrome-stable", "--enable-features=AcceleratedVideoEncoder,AcceleratedVideoDecodeLinuxGL,AcceleratedVideoDecodeLinuxZeroCopyGL,VaapiIgnoreDriverChecks,Vulkan,DefaultANGLEVulkan,VulkanFromANGLE,TouchpadOverscrollHistoryNavigation", "--ozone-platform-hint=auto", "--password-store=basic", NULL };
+    static const char *browsercmd[]  = { "google-chrome-stable", " --enable-features=AcceleratedVideoEncoder,AcceleratedVideoDecodeLinuxGL,AcceleratedVideoDecodeLinuxZeroCopyGL,VaapiIgnoreDriverChecks,TouchpadOverscrollHistoryNavigation,FluentOverlayScrollbar", "--ozone-platform-hint=auto", "--password-store=basic", NULL };
     static const char *pavucontrolcmd[] = { "pavucontrol", NULL };
     static const char *filescmd[]  = { "pcmanfm", NULL };
     static const char *screenshotcmd[]  = { "flameshot", "gui", NULL };
