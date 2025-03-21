@@ -103,7 +103,7 @@
         /* Apps and Scripts */
         { MODKEY, XKB_KEY_Return, spawn, {.v = termcmd } },
         { MODKEY, XKB_KEY_b, spawn, {.v = browsercmd } },
-        { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_B, spawn, SHCMD("blueman-manager") },
+        { MODKEY, XKB_KEY_a, spawn, SHCMD("blueman-manager") },
         { MODKEY, XKB_KEY_h, spawn, SHCMD("foot -c ~/.config/foot/foot_no_pad.ini -e btop") },
         { MODKEY, XKB_KEY_y, spawn, SHCMD("foot -c ~/.config/foot/foot_no_pad.ini -e yazi") },
         { MODKEY, XKB_KEY_n, spawn, SHCMD("foot -c ~/.config/foot/foot_no_pad.ini -e nvim") },
@@ -114,7 +114,6 @@
         { MODKEY, XKB_KEY_l, spawn, SHCMD("killall bemenu || ~/scripts/dmenu_logout_dwl.sh") },
         { MODKEY, XKB_KEY_u, spawn, SHCMD("killall bemenu || ~/scripts/prompt.sh && kill -64 $(pidof someblocks)") },
         { MODKEY, XKB_KEY_v, spawn, SHCMD("killall bemenu || ~/scripts/cliphist-rofi") },
-        { MODKEY, XKB_KEY_a, spawn, SHCMD("killall bemenu || ~/scripts/dmenu_man") },
         { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_F, togglefullscreen, {0} },
         { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_S, spawn, {.v = screenshotcmd } },
         { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_W, spawn, SHCMD("~/scripts/background.sh") },
