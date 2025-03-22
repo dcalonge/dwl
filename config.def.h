@@ -94,9 +94,9 @@
     /* commands */
     static const char *termcmd[]  = { "foot", NULL };
     static const char *browsercmd[]  = { "google-chrome-stable", " --enable-features=AcceleratedVideoEncoder,AcceleratedVideoDecodeLinuxGL,AcceleratedVideoDecodeLinuxZeroCopyGL,VaapiIgnoreDriverChecks,TouchpadOverscrollHistoryNavigation,FluentOverlayScrollbar", "--ozone-platform-hint=auto", "--password-store=basic", NULL };
-    static const char *pavucontrolcmd[] = { "pavucontrol", NULL };
+    static const char *pavucontrolcmd[] = { "foot","-e", "pulsemixer", NULL };
     static const char *filescmd[]  = { "pcmanfm", NULL };
-    static const char *screenshotcmd[]  = { "flameshot", "gui", NULL };
+    static const char *screenshotcmd[]  = { "/home/daniel/scripts/screenshot_river.sh", NULL };
     static const char *bluetoothcmd[]  = { "foot", "-e", "bluetuith", NULL };
     static const char *calculatorcmd[]  = { "qalculate-gtk", NULL };
 
@@ -108,7 +108,7 @@
         { MODKEY, XKB_KEY_b, spawn, {.v = browsercmd } },
         { MODKEY, XKB_KEY_a, spawn, {.v = bluetoothcmd} },
         { MODKEY, XKB_KEY_h, spawn, SHCMD("foot -c ~/.config/foot/foot_no_pad.ini -e btop") },
-        { MODKEY, XKB_KEY_y, spawn, SHCMD("foot -c ~/.config/foot/foot_no_pad.ini -e yazi") },
+        { MODKEY, XKB_KEY_y, spawn, SHCMD("foot -e yazi") },
         { MODKEY, XKB_KEY_n, spawn, SHCMD("foot -c ~/.config/foot/foot_no_pad.ini -e nvim") },
         { MODKEY, XKB_KEY_p, spawn, {.v = pavucontrolcmd } },
         { MODKEY, XKB_KEY_w, spawn, SHCMD("killall bemenu || networkmanager_dmenu") },
