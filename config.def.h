@@ -93,7 +93,7 @@
 
     /* commands */
     static const char *termcmd[]  = { "foot", NULL };
-    static const char *browsercmd[]  = { "google-chrome-stable", " --enable-features=AcceleratedVideoEncoder,AcceleratedVideoDecodeLinuxGL,AcceleratedVideoDecodeLinuxZeroCopyGL,VaapiIgnoreDriverChecks,TouchpadOverscrollHistoryNavigation,FluentOverlayScrollbar", "--ozone-platform-hint=auto", "--password-store=basic", NULL };
+    static const char *browsercmd[]  = { "firefox", NULL };
     static const char *pavucontrolcmd[] = { "foot","-e", "pulsemixer", NULL };
     static const char *filescmd[]  = { "pcmanfm", NULL };
     static const char *screenshotcmd[]  = { "/home/daniel/scripts/screenshot_river.sh", NULL };

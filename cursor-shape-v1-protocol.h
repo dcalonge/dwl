@@ -17,6 +17,14 @@ extern "C" {
  *
  * The names are taken from the CSS W3C specification:
  * https://w3c.github.io/csswg-drafts/css-ui/#cursor
+ * with a few additions.
+ *
+ * Note that there are some groups of cursor shapes that are related:
+ * The first group is drag-and-drop cursors which are used to indicate
+ * the selected action during dnd operations. The second group is resize
+ * cursors which are used to indicate resizing and moving possibilities
+ * on window borders. It is recommended that the shapes in these groups
+ * should use visually compatible images and metaphors.
  */
 enum wp_cursor_shape_device_v1_shape {
 	/**
@@ -155,7 +163,25 @@ enum wp_cursor_shape_device_v1_shape {
 	 * something can be zoomed out
 	 */
 	WP_CURSOR_SHAPE_DEVICE_V1_SHAPE_ZOOM_OUT = 34,
+	/**
+	 * drag-and-drop: the user will select which action will be carried out (non-css value)
+	 * @since 2
+	 */
+	WP_CURSOR_SHAPE_DEVICE_V1_SHAPE_DND_ASK = 35,
+	/**
+	 * resizing: something can be moved or resized in any direction (non-css value)
+	 * @since 2
+	 */
+	WP_CURSOR_SHAPE_DEVICE_V1_SHAPE_ALL_RESIZE = 36,
 };
+/**
+ * @ingroup iface_wp_cursor_shape_device_v1
+ */
+#define WP_CURSOR_SHAPE_DEVICE_V1_SHAPE_DND_ASK_SINCE_VERSION 2
+/**
+ * @ingroup iface_wp_cursor_shape_device_v1
+ */
+#define WP_CURSOR_SHAPE_DEVICE_V1_SHAPE_ALL_RESIZE_SINCE_VERSION 2
 #endif /* WP_CURSOR_SHAPE_DEVICE_V1_SHAPE_ENUM */
 
 #ifndef WP_CURSOR_SHAPE_DEVICE_V1_ERROR_ENUM

@@ -1440,6 +1440,46 @@ enum xdg_toplevel_state {
 	 * @since 6
 	 */
 	XDG_TOPLEVEL_STATE_SUSPENDED = 9,
+	/**
+	 * the surface’s left edge is constrained
+	 *
+	 * The left edge of the window is currently constrained, meaning
+	 * it shouldn't attempt to resize from that edge. It can for
+	 * example mean it's tiled next to a monitor edge on the
+	 * constrained side of the window.
+	 * @since 7
+	 */
+	XDG_TOPLEVEL_STATE_CONSTRAINED_LEFT = 10,
+	/**
+	 * the surface’s right edge is constrained
+	 *
+	 * The right edge of the window is currently constrained, meaning
+	 * it shouldn't attempt to resize from that edge. It can for
+	 * example mean it's tiled next to a monitor edge on the
+	 * constrained side of the window.
+	 * @since 7
+	 */
+	XDG_TOPLEVEL_STATE_CONSTRAINED_RIGHT = 11,
+	/**
+	 * the surface’s top edge is constrained
+	 *
+	 * The top edge of the window is currently constrained, meaning
+	 * it shouldn't attempt to resize from that edge. It can for
+	 * example mean it's tiled next to a monitor edge on the
+	 * constrained side of the window.
+	 * @since 7
+	 */
+	XDG_TOPLEVEL_STATE_CONSTRAINED_TOP = 12,
+	/**
+	 * the surface’s bottom edge is tiled
+	 *
+	 * The bottom edge of the window is currently constrained,
+	 * meaning it shouldn't attempt to resize from that edge. It can
+	 * for example mean it's tiled next to a monitor edge on the
+	 * constrained side of the window.
+	 * @since 7
+	 */
+	XDG_TOPLEVEL_STATE_CONSTRAINED_BOTTOM = 13,
 };
 /**
  * @ingroup iface_xdg_toplevel
@@ -1461,6 +1501,22 @@ enum xdg_toplevel_state {
  * @ingroup iface_xdg_toplevel
  */
 #define XDG_TOPLEVEL_STATE_SUSPENDED_SINCE_VERSION 6
+/**
+ * @ingroup iface_xdg_toplevel
+ */
+#define XDG_TOPLEVEL_STATE_CONSTRAINED_LEFT_SINCE_VERSION 7
+/**
+ * @ingroup iface_xdg_toplevel
+ */
+#define XDG_TOPLEVEL_STATE_CONSTRAINED_RIGHT_SINCE_VERSION 7
+/**
+ * @ingroup iface_xdg_toplevel
+ */
+#define XDG_TOPLEVEL_STATE_CONSTRAINED_TOP_SINCE_VERSION 7
+/**
+ * @ingroup iface_xdg_toplevel
+ */
+#define XDG_TOPLEVEL_STATE_CONSTRAINED_BOTTOM_SINCE_VERSION 7
 /**
  * @ingroup iface_xdg_toplevel
  * Validate a xdg_toplevel state value.
@@ -1489,6 +1545,14 @@ xdg_toplevel_state_is_valid(uint32_t value, uint32_t version) {
 		return version >= 2;
 	case XDG_TOPLEVEL_STATE_SUSPENDED:
 		return version >= 6;
+	case XDG_TOPLEVEL_STATE_CONSTRAINED_LEFT:
+		return version >= 7;
+	case XDG_TOPLEVEL_STATE_CONSTRAINED_RIGHT:
+		return version >= 7;
+	case XDG_TOPLEVEL_STATE_CONSTRAINED_TOP:
+		return version >= 7;
+	case XDG_TOPLEVEL_STATE_CONSTRAINED_BOTTOM:
+		return version >= 7;
 	default:
 		return false;
 	}
