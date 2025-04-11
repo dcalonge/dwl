@@ -93,7 +93,6 @@
 
     /* commands */
     static const char *termcmd[]  = { "foot", NULL };
-    static const char *browsercmd[]  = { "firefox", NULL };
     static const char *pavucontrolcmd[] = { "foot","-e", "pulsemixer", NULL };
     static const char *filescmd[]  = { "pcmanfm", NULL };
     static const char *screenshotcmd[]  = { "/home/daniel/scripts/screenshot_river.sh", NULL };
@@ -105,7 +104,7 @@
     static const Key keys[] = {
         /* Apps and Scripts */
         { MODKEY, XKB_KEY_Return, spawn, {.v = termcmd } },
-        { MODKEY, XKB_KEY_b, spawn, {.v = browsercmd } },
+        { MODKEY, XKB_KEY_b, spawn, SHCMD("flatpak run com.google.Chrome") },
         { MODKEY, XKB_KEY_a, spawn, {.v = bluetoothcmd} },
         { MODKEY, XKB_KEY_h, spawn, SHCMD("foot -c ~/.config/foot/foot_no_pad.ini -e btop") },
         { MODKEY, XKB_KEY_y, spawn, SHCMD("foot -e yazi") },
@@ -121,6 +120,7 @@
         { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_S, spawn, {.v = screenshotcmd } },
         { 0, XKB_KEY_XF86Calculator, spawn, {.v = calculatorcmd } },
         { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_W, spawn, SHCMD("~/scripts/background.sh") },
+        { MODKEY, XKB_KEY_r, spawn, SHCMD("~/scripts/wlr-menu") },
         { MODKEY, XKB_KEY_q, killclient, {0} },
 
         /* Volume, Brightness and Media Controls */
@@ -130,6 +130,8 @@
         { 0, XKB_KEY_XF86AudioRaiseVolume, spawn, SHCMD("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+ && kill -44 $(pidof someblocks)") },
         { 0, XKB_KEY_XF86MonBrightnessUp, spawn, SHCMD("brightnessctl set +5% && kill -54 $(pidof someblocks)") },
         { 0, XKB_KEY_XF86MonBrightnessDown, spawn, SHCMD("brightnessctl set 5%- && kill -54 $(pidof someblocks)") },
+        { MODKEY, XKB_KEY_XF86MonBrightnessUp, spawn, SHCMD("~/scripts/keyboard_backlight up") },
+        { MODKEY, XKB_KEY_XF86MonBrightnessDown, spawn, SHCMD("~/scripts/keyboard_backlight down") },
         { 0, XKB_KEY_XF86AudioPlay, spawn, SHCMD("playerctl play-pause") },
         { 0, XKB_KEY_XF86AudioNext, spawn, SHCMD("playerctl next") },
         { 0, XKB_KEY_XF86AudioPrev, spawn, SHCMD("playerctl previous") },
@@ -176,10 +178,13 @@
 
     static const Key lockedkeys[] = {
         { 0, XKB_KEY_XF86AudioMute, spawn, SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && kill -44 $(pidof someblocks)") },
+        { 0, XKB_KEY_XF86AudioMicMute, spawn, SHCMD("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && kill -49 $(pidof someblocks)") },
         { 0, XKB_KEY_XF86AudioLowerVolume, spawn, SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && kill -44 $(pidof someblocks)") },
         { 0, XKB_KEY_XF86AudioRaiseVolume, spawn, SHCMD("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+ && kill -44 $(pidof someblocks)") },
         { 0, XKB_KEY_XF86MonBrightnessUp, spawn, SHCMD("brightnessctl set +5% && kill -54 $(pidof someblocks)") },
         { 0, XKB_KEY_XF86MonBrightnessDown, spawn, SHCMD("brightnessctl set 5%- && kill -54 $(pidof someblocks)") },
+        { MODKEY, XKB_KEY_XF86MonBrightnessUp, spawn, SHCMD("~/scripts/keyboard_backlight up") },
+        { MODKEY, XKB_KEY_XF86MonBrightnessDown, spawn, SHCMD("~/scripts/keyboard_backlight down") },
         { 0, XKB_KEY_XF86AudioPlay, spawn, SHCMD("playerctl play-pause") },
         { 0, XKB_KEY_XF86AudioNext, spawn, SHCMD("playerctl next") },
         { 0, XKB_KEY_XF86AudioPrev, spawn, SHCMD("playerctl previous") },
