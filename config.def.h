@@ -12,8 +12,7 @@
     static const int user_bh		           = 24; /* 0 means that dwl will calculate barheight, >= 1 means dwl will use user_bh as the bar height. */
     static const int showbar                   = 1; /* 0 means no bar */
     static const int topbar                    = 1; /* 0 means bottom bar */
-    static const char *fonts[]                 = {"JetbrainsMono Nerd Font:size=11:antialias=true:hinting=true",
-                                                    "JoyPixels Regular:size=10:antialias=true:autohint=true"};
+    static const char *fonts[]                 = {"JetbrainsMono Nerd Font:size=11:antialias=true:hinting=true"};
     static const float rootcolor[]             = COLOR(0x000000ff);
 
     /* This conforms to the xdg-protocol. Set the alpha to zero to restore the old behavior */
@@ -95,8 +94,7 @@
     static const char *termcmd[]  = { "foot", NULL };
     static const char *pavucontrolcmd[] = { "foot","-e", "pulsemixer", NULL };
     static const char *filescmd[]  = { "pcmanfm", NULL };
-    static const char *screenshotcmd[]  = { "/home/daniel/scripts/screenshot_river.sh", NULL };
-    static const char *bluetoothcmd[]  = { "foot", "-e", "bluetuith", NULL };
+    static const char *screenshotcmd[]  = { "~/scripts/screenshot_river.sh", NULL };
     static const char *calculatorcmd[]  = { "qalculate-gtk", NULL };
 
 
@@ -105,7 +103,8 @@
         /* Apps and Scripts */
         { MODKEY, XKB_KEY_Return, spawn, {.v = termcmd } },
         { MODKEY, XKB_KEY_b, spawn, SHCMD("flatpak run com.google.Chrome") },
-        { MODKEY, XKB_KEY_a, spawn, {.v = bluetoothcmd} },
+        { MODKEY, XKB_KEY_a, spawn, SHCMD("killall bemenu || ~/scripts/dmenu-bluetooth; kill -39 $(pidof someblocks)") },
+        { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_A, spawn, SHCMD("foot -e bluetuith; kill -39 $(pidof someblocks)") },
         { MODKEY, XKB_KEY_h, spawn, SHCMD("foot -c ~/.config/foot/foot_no_pad.ini -e btop") },
         { MODKEY, XKB_KEY_y, spawn, SHCMD("foot -e yazi") },
         { MODKEY, XKB_KEY_n, spawn, SHCMD("foot -c ~/.config/foot/foot_no_pad.ini -e nvim") },
@@ -114,7 +113,7 @@
         { MODKEY, XKB_KEY_e, spawn, {.v = filescmd } },
         { MODKEY, XKB_KEY_d, spawn, SHCMD("killall bemenu || j4-dmenu-desktop --no-generic --skip-i3-exec-check -b --dmenu bemenu -t foot") },
         { MODKEY, XKB_KEY_l, spawn, SHCMD("killall bemenu || ~/scripts/dmenu_logout_dwl.sh") },
-        { MODKEY, XKB_KEY_u, spawn, SHCMD("killall bemenu || ~/scripts/prompt.sh && kill -64 $(pidof someblocks)") },
+        { MODKEY, XKB_KEY_u, spawn, SHCMD("killall bemenu || ~/scripts/prompt.sh; kill -64 $(pidof someblocks)") },
         { MODKEY, XKB_KEY_v, spawn, SHCMD("killall bemenu || ~/scripts/cliphist-rofi") },
         { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_F, togglefullscreen, {0} },
         { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_S, spawn, {.v = screenshotcmd } },
