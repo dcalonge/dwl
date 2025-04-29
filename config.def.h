@@ -9,7 +9,7 @@
     static int gaps                            = 1;  /* 1 means gaps between windows are added */
     static const unsigned int gappx            = 8; /* gap pixel between windows */
     static const unsigned int borderpx         = 2;  /* border pixel of windows */
-    static const int user_bh		           = 24; /* 0 means that dwl will calculate barheight, >= 1 means dwl will use user_bh as the bar height. */
+    static const int user_bh		               = 24; /* 0 means that dwl will calculate barheight, >= 1 means dwl will use user_bh as the bar height. */
     static const int showbar                   = 1; /* 0 means no bar */
     static const int topbar                    = 1; /* 0 means bottom bar */
     static const char *fonts[]                 = {"JetbrainsMono Nerd Font:size=11:antialias=true:hinting=true"};
@@ -35,9 +35,9 @@
     	/* app_id             title           tags mask     isfloating   monitor */
         { NULL,              "Open File",     0,            1,           -1 },
         { NULL,              "Open Folder",   0,            1,           -1 },
-        { "qalculate-gtk",              NULL,   0,            1,           -1 },
-        { "mpv",               NULL,           0,            1,           -1 },
-        { "imv",               NULL,           0,            1,           -1 },
+        { "qalculate-gtk",   NULL,            0,            1,           -1 },
+        { "zathura",         NULL,            0,            1,           -1 },
+        { "imv",             NULL,            0,            1,           -1 },
     };
 
 /* layout(s) */
@@ -92,118 +92,123 @@
 
     /* commands */
     static const char *termcmd[]  = { "foot", NULL };
-    static const char *pavucontrolcmd[] = { "foot","-e", "pulsemixer", NULL };
     static const char *filescmd[]  = { "pcmanfm", NULL };
-    static const char *screenshotcmd[]  = { "~/scripts/screenshot_river.sh", NULL };
     static const char *calculatorcmd[]  = { "qalculate-gtk", NULL };
 
 
     /* Keys */
     static const Key keys[] = {
         /* Apps and Scripts */
-        { MODKEY, XKB_KEY_Return, spawn, {.v = termcmd } },
-        { MODKEY, XKB_KEY_b, spawn, SHCMD("flatpak run com.google.Chrome") },
-        { MODKEY, XKB_KEY_a, spawn, SHCMD("killall bemenu || ~/scripts/dmenu-bluetooth; kill -39 $(pidof someblocks)") },
-        { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_A, spawn, SHCMD("foot -e bluetuith; kill -39 $(pidof someblocks)") },
-        { MODKEY, XKB_KEY_h, spawn, SHCMD("foot -c ~/.config/foot/foot_no_pad.ini -e btop") },
-        { MODKEY, XKB_KEY_y, spawn, SHCMD("foot -e yazi") },
-        { MODKEY, XKB_KEY_n, spawn, SHCMD("foot -c ~/.config/foot/foot_no_pad.ini -e nvim") },
-        { MODKEY, XKB_KEY_p, spawn, {.v = pavucontrolcmd } },
-        { MODKEY, XKB_KEY_w, spawn, SHCMD("killall bemenu || networkmanager_dmenu") },
-        { MODKEY, XKB_KEY_e, spawn, {.v = filescmd } },
-        { MODKEY, XKB_KEY_d, spawn, SHCMD("killall bemenu || j4-dmenu-desktop --no-generic --skip-i3-exec-check -b --dmenu bemenu -t foot") },
-        { MODKEY, XKB_KEY_l, spawn, SHCMD("killall bemenu || ~/scripts/dmenu_logout_dwl.sh") },
-        { MODKEY, XKB_KEY_u, spawn, SHCMD("killall bemenu || ~/scripts/prompt.sh; kill -64 $(pidof someblocks)") },
-        { MODKEY, XKB_KEY_v, spawn, SHCMD("killall bemenu || ~/scripts/cliphist-rofi") },
-        { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_F, togglefullscreen, {0} },
-        { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_S, spawn, {.v = screenshotcmd } },
-        { 0, XKB_KEY_XF86Calculator, spawn, {.v = calculatorcmd } },
-        { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_W, spawn, SHCMD("~/scripts/background.sh") },
-        { MODKEY, XKB_KEY_r, spawn, SHCMD("~/scripts/wlr-menu") },
-        { MODKEY, XKB_KEY_q, killclient, {0} },
+        { MODKEY,                         XKB_KEY_Return,         spawn,          {.v = termcmd } },
+        { MODKEY,                         XKB_KEY_b,              spawn,          SHCMD("flatpak run com.google.Chrome") },
+        { MODKEY,                         XKB_KEY_a,              spawn,          SHCMD("killall bemenu || ~/scripts/dmenu-bluetooth; kill -39 $(pidof someblocks)") },
+        { MODKEY|WLR_MODIFIER_SHIFT,       XKB_KEY_A,              spawn,          SHCMD("foot -e bluetuith; kill -39 $(pidof someblocks)") },
+        { MODKEY,                         XKB_KEY_h,              spawn,          SHCMD("foot -c ~/.config/foot/foot_no_pad.ini -e btop") },
+        { MODKEY,                         XKB_KEY_y,              spawn,          SHCMD("foot -e yazi") },
+        { MODKEY,                         XKB_KEY_n,              spawn,          SHCMD("foot -c ~/.config/foot/foot_no_pad.ini -e nvim") },
+        { MODKEY,                         XKB_KEY_p,              spawn,          SHCMD("foot -e pulsemixer") },
+        { MODKEY,                         XKB_KEY_w,              spawn,          SHCMD("killall bemenu || networkmanager_dmenu") },
+        { MODKEY,                         XKB_KEY_e,              spawn,          {.v = filescmd } },
+        { MODKEY,                         XKB_KEY_d,              spawn,          SHCMD("killall bemenu || j4-dmenu-desktop --no-generic --skip-i3-exec-check -b --dmenu bemenu -t foot") },
+        { MODKEY,                         XKB_KEY_l,              spawn,          SHCMD("killall bemenu || ~/scripts/dmenu_logout_dwl.sh") },
+        { MODKEY,                         XKB_KEY_u,              spawn,          SHCMD("killall bemenu || ~/scripts/prompt.sh; kill -64 $(pidof someblocks)") },
+        { MODKEY,                         XKB_KEY_v,              spawn,          SHCMD("killall bemenu || ~/scripts/cliphist-rofi") },
+        { MODKEY|WLR_MODIFIER_SHIFT,       XKB_KEY_F,              togglefullscreen,{0} },
+        { MODKEY|WLR_MODIFIER_SHIFT,       XKB_KEY_S,              spawn,          SHCMD("~/scripts/screenshot_river.sh") },
+        { 0,                              XKB_KEY_XF86Calculator, spawn,          {.v = calculatorcmd } },
+        { MODKEY|WLR_MODIFIER_SHIFT,       XKB_KEY_W,              spawn,          SHCMD("~/scripts/background.sh") },
+        { MODKEY|WLR_MODIFIER_SHIFT,       XKB_KEY_B,              spawn,          SHCMD("~/scripts/battery_threshold") },
+        { MODKEY,                         XKB_KEY_r,              spawn,          SHCMD("~/scripts/wlr-menu") },
+        { MODKEY,                         XKB_KEY_q,              killclient,     {0} },
 
         /* Volume, Brightness and Media Controls */
-        { 0, XKB_KEY_XF86AudioMute, spawn, SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && kill -44 $(pidof someblocks)") },
-        { 0, XKB_KEY_XF86AudioMicMute, spawn, SHCMD("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && kill -49 $(pidof someblocks)") },
-        { 0, XKB_KEY_XF86AudioLowerVolume, spawn, SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && kill -44 $(pidof someblocks)") },
-        { 0, XKB_KEY_XF86AudioRaiseVolume, spawn, SHCMD("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+ && kill -44 $(pidof someblocks)") },
-        { 0, XKB_KEY_XF86MonBrightnessUp, spawn, SHCMD("brightnessctl set +5% && kill -54 $(pidof someblocks)") },
-        { 0, XKB_KEY_XF86MonBrightnessDown, spawn, SHCMD("brightnessctl set 5%- && kill -54 $(pidof someblocks)") },
-        { MODKEY, XKB_KEY_XF86MonBrightnessUp, spawn, SHCMD("~/scripts/keyboard_backlight up") },
-        { MODKEY, XKB_KEY_XF86MonBrightnessDown, spawn, SHCMD("~/scripts/keyboard_backlight down") },
-        { 0, XKB_KEY_XF86AudioPlay, spawn, SHCMD("playerctl play-pause") },
-        { 0, XKB_KEY_XF86AudioNext, spawn, SHCMD("playerctl next") },
-        { 0, XKB_KEY_XF86AudioPrev, spawn, SHCMD("playerctl previous") },
+        { 0,                              XKB_KEY_XF86AudioMute,      spawn,      SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && kill -44 $(pidof someblocks)") },
+        { 0,                              XKB_KEY_XF86AudioMicMute,   spawn,      SHCMD("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && kill -49 $(pidof someblocks)") },
+        { 0,                              XKB_KEY_XF86AudioLowerVolume,spawn,     SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && kill -44 $(pidof someblocks)") },
+        { 0,                              XKB_KEY_XF86AudioRaiseVolume,spawn,     SHCMD("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+ && kill -44 $(pidof someblocks)") },
+        { 0,                              XKB_KEY_XF86MonBrightnessUp, spawn,     SHCMD("brightnessctl set +5% && kill -54 $(pidof someblocks)") },
+        { 0,                              XKB_KEY_XF86MonBrightnessDown,spawn,    SHCMD("brightnessctl set 5%- && kill -54 $(pidof someblocks)") },
+        { MODKEY,                         XKB_KEY_XF86MonBrightnessUp, spawn,     SHCMD("~/scripts/keyboard_backlight up") },
+        { MODKEY,                         XKB_KEY_XF86MonBrightnessDown,spawn,    SHCMD("~/scripts/keyboard_backlight down") },
+        { 0,                              XKB_KEY_XF86AudioPlay,       spawn,     SHCMD("playerctl play-pause") },
+        { 0,                              XKB_KEY_XF86AudioNext,       spawn,     SHCMD("playerctl next") },
+        { 0,                              XKB_KEY_XF86AudioPrev,       spawn,     SHCMD("playerctl previous") },
 
-        /* Window Manager Stuff */
-        { MODKEY, XKB_KEY_Left, focusdir, {.ui = 0} },
-        { MODKEY, XKB_KEY_Right, focusdir, {.ui = 1} },
-        { MODKEY, XKB_KEY_Up, focusstack, {.i = -1} },
-        { MODKEY, XKB_KEY_Down, focusstack, {.i = +1} },
-        { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Left, swapdir, {.ui = 0} },
-        { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Right, swapdir, {.ui = 1} },
-        { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Up, swapdir, {.ui = 2} },
-        { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Down, swapdir, {.ui = 3} },
-        { MODKEY, XKB_KEY_plus, incnmaster, {.i = +1} },
-        { MODKEY, XKB_KEY_minus, incnmaster, {.i = -1} },
-        { MODKEY|WLR_MODIFIER_CTRL, XKB_KEY_Right, setmfact, {.f = +0.05f} },
-        { MODKEY|WLR_MODIFIER_CTRL, XKB_KEY_Left, setmfact, {.f = -0.05f} },
-        { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Return, zoom, {0} },
-        { MODKEY, XKB_KEY_Tab, view, {0} },
-        { MODKEY, XKB_KEY_q, killclient, {0} },
-        { MODKEY, XKB_KEY_t, setlayout, {.v = &layouts[0]} },
-        { MODKEY, XKB_KEY_f, setlayout, {.v = &layouts[1]} },
-        { MODKEY, XKB_KEY_m, setlayout, {.v = &layouts[2]} },
-        { MODKEY, XKB_KEY_space, togglefloating, {0} },
-        { MODKEY, XKB_KEY_0, view, {.ui = ~0} },
-        { MODKEY, XKB_KEY_o, focusmon, {.i = WLR_DIRECTION_LEFT} },
-        { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_O, tagmon, {.i = WLR_DIRECTION_LEFT} },
-        TAGKEYS(XKB_KEY_1, XKB_KEY_exclam, 0),
-        TAGKEYS(XKB_KEY_2, XKB_KEY_quotedbl, 1),
+        /* Window Manager Functions */
+        { MODKEY,                         XKB_KEY_Left,           focusdir,       {.ui = 0} },
+        { MODKEY,                         XKB_KEY_Right,          focusdir,       {.ui = 1} },
+        { MODKEY,                         XKB_KEY_Up,             focusstack,     {.i = -1} },
+        { MODKEY,                         XKB_KEY_Down,           focusstack,     {.i = +1} },
+        { MODKEY|WLR_MODIFIER_SHIFT,       XKB_KEY_Left,           swapdir,        {.ui = 0} },
+        { MODKEY|WLR_MODIFIER_SHIFT,       XKB_KEY_Right,          swapdir,        {.ui = 1} },
+        { MODKEY|WLR_MODIFIER_SHIFT,       XKB_KEY_Up,             swapdir,        {.ui = 2} },
+        { MODKEY|WLR_MODIFIER_SHIFT,       XKB_KEY_Down,           swapdir,        {.ui = 3} },
+        { MODKEY,                         XKB_KEY_plus,           incnmaster,     {.i = +1} },
+        { MODKEY,                         XKB_KEY_minus,          incnmaster,     {.i = -1} },
+        { MODKEY|WLR_MODIFIER_CTRL,        XKB_KEY_Right,          setmfact,       {.f = +0.05f} },
+        { MODKEY|WLR_MODIFIER_CTRL,        XKB_KEY_Left,           setmfact,       {.f = -0.05f} },
+        { MODKEY|WLR_MODIFIER_SHIFT,       XKB_KEY_Return,         zoom,           {0} },
+        { MODKEY,                         XKB_KEY_Tab,            view,           {0} },
+        { MODKEY,                         XKB_KEY_t,              setlayout,      {.v = &layouts[0]} },
+        { MODKEY,                         XKB_KEY_f,              setlayout,      {.v = &layouts[1]} },
+        { MODKEY,                         XKB_KEY_m,              setlayout,      {.v = &layouts[2]} },
+        { MODKEY,                         XKB_KEY_space,          togglefloating, {0} },
+        { MODKEY,                         XKB_KEY_0,              view,           {.ui = ~0} },
+        { MODKEY,                         XKB_KEY_o,              focusmon,       {.i = WLR_DIRECTION_LEFT} },
+        { MODKEY|WLR_MODIFIER_SHIFT,       XKB_KEY_O,              tagmon,         {.i = WLR_DIRECTION_LEFT} },
+        
+        /* Tags */
+        TAGKEYS(XKB_KEY_1, XKB_KEY_exclam,         0),
+        TAGKEYS(XKB_KEY_2, XKB_KEY_quotedbl,       1),
         TAGKEYS(XKB_KEY_3, XKB_KEY_periodcentered, 2),
-        TAGKEYS(XKB_KEY_4, XKB_KEY_dollar, 3),
-        TAGKEYS(XKB_KEY_5, XKB_KEY_percent, 4),
-        TAGKEYS(XKB_KEY_6, XKB_KEY_ampersand, 5),
-        TAGKEYS(XKB_KEY_7, XKB_KEY_slash, 6),
-        TAGKEYS(XKB_KEY_8, XKB_KEY_parenleft, 7),
-        TAGKEYS(XKB_KEY_9, XKB_KEY_parenright, 8),
-        { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Q, spawn, SHCMD("pkill -x someblocks && pkill -x dwl") },
+        TAGKEYS(XKB_KEY_4, XKB_KEY_dollar,         3),
+        TAGKEYS(XKB_KEY_5, XKB_KEY_percent,        4),
+        TAGKEYS(XKB_KEY_6, XKB_KEY_ampersand,      5),
+        TAGKEYS(XKB_KEY_7, XKB_KEY_slash,          6),
+        TAGKEYS(XKB_KEY_8, XKB_KEY_parenleft,      7),
+        TAGKEYS(XKB_KEY_9, XKB_KEY_parenright,     8),
 
-        /* Change TTYs */
+        /* Others */
+        { 0,                              XKB_KEY_Caps_Lock,     spawn,           SHCMD("~/scripts/caps_lock") },
+        { MODKEY|WLR_MODIFIER_SHIFT,       XKB_KEY_Q,            spawn,           SHCMD("pkill -x someblocks && pkill -x dwl") },
+
+        /* TTY Switching */
         #define CHVT(n) { WLR_MODIFIER_CTRL|WLR_MODIFIER_ALT,XKB_KEY_XF86Switch_VT_##n, chvt, {.ui = (n)} }
         CHVT(1), CHVT(2), CHVT(3), CHVT(4), CHVT(5), CHVT(6),
         CHVT(7), CHVT(8), CHVT(9), CHVT(10), CHVT(11), CHVT(12),
     };
 
+
     static const Key lockedkeys[] = {
-        { 0, XKB_KEY_XF86AudioMute, spawn, SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && kill -44 $(pidof someblocks)") },
-        { 0, XKB_KEY_XF86AudioMicMute, spawn, SHCMD("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && kill -49 $(pidof someblocks)") },
-        { 0, XKB_KEY_XF86AudioLowerVolume, spawn, SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && kill -44 $(pidof someblocks)") },
-        { 0, XKB_KEY_XF86AudioRaiseVolume, spawn, SHCMD("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+ && kill -44 $(pidof someblocks)") },
-        { 0, XKB_KEY_XF86MonBrightnessUp, spawn, SHCMD("brightnessctl set +5% && kill -54 $(pidof someblocks)") },
-        { 0, XKB_KEY_XF86MonBrightnessDown, spawn, SHCMD("brightnessctl set 5%- && kill -54 $(pidof someblocks)") },
-        { MODKEY, XKB_KEY_XF86MonBrightnessUp, spawn, SHCMD("~/scripts/keyboard_backlight up") },
-        { MODKEY, XKB_KEY_XF86MonBrightnessDown, spawn, SHCMD("~/scripts/keyboard_backlight down") },
-        { 0, XKB_KEY_XF86AudioPlay, spawn, SHCMD("playerctl play-pause") },
-        { 0, XKB_KEY_XF86AudioNext, spawn, SHCMD("playerctl next") },
-        { 0, XKB_KEY_XF86AudioPrev, spawn, SHCMD("playerctl previous") },
+        { 0,                              XKB_KEY_XF86AudioMute,      spawn,      SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && kill -44 $(pidof someblocks)") },
+        { 0,                              XKB_KEY_XF86AudioMicMute,   spawn,      SHCMD("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && kill -49 $(pidof someblocks)") },
+        { 0,                              XKB_KEY_XF86AudioLowerVolume,spawn,     SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && kill -44 $(pidof someblocks)") },
+        { 0,                              XKB_KEY_XF86AudioRaiseVolume,spawn,     SHCMD("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+ && kill -44 $(pidof someblocks)") },
+        { 0,                              XKB_KEY_XF86MonBrightnessUp, spawn,     SHCMD("brightnessctl set +5% && kill -54 $(pidof someblocks)") },
+        { 0,                              XKB_KEY_XF86MonBrightnessDown,spawn,    SHCMD("brightnessctl set 5%- && kill -54 $(pidof someblocks)") },
+        { MODKEY,                         XKB_KEY_XF86MonBrightnessUp, spawn,     SHCMD("~/scripts/keyboard_backlight up") },
+        { MODKEY,                         XKB_KEY_XF86MonBrightnessDown,spawn,    SHCMD("~/scripts/keyboard_backlight down") },
+        { 0,                              XKB_KEY_XF86AudioPlay,       spawn,     SHCMD("playerctl play-pause") },
+        { 0,                              XKB_KEY_XF86AudioNext,       spawn,     SHCMD("playerctl next") },
+        { 0,                              XKB_KEY_XF86AudioPrev,       spawn,     SHCMD("playerctl previous") },
 
         CHVT(1), CHVT(2), CHVT(3), CHVT(4), CHVT(5), CHVT(6),
         CHVT(7), CHVT(8), CHVT(9), CHVT(10), CHVT(11), CHVT(12),
     };
 
-/* Mouse actions */
-    static const Button buttons[] = {
-        { ClkLtSymbol, 0, BTN_LEFT, setlayout, {.v = &layouts[0]} },
-        { ClkLtSymbol, 0, BTN_RIGHT, setlayout, {.v = &layouts[1]} },
-        { ClkLtSymbol, 0, BTN_MIDDLE, setlayout, {.v = &layouts[2]} },
-        { ClkTitle, 0, BTN_LEFT, zoom, {0} },
-        { ClkStatus, 0, BTN_LEFT, spawn, SHCMD("killall bemenu || j4-dmenu-desktop --no-generic --skip-i3-exec-check -b --dmenu bemenu -t foot") },
-        { ClkClient, MODKEY, BTN_LEFT, moveresize, {.ui = CurMove} },
-        { ClkClient, MODKEY, BTN_MIDDLE, togglefloating, {0} },
-        { ClkClient, MODKEY|WLR_MODIFIER_CTRL, BTN_LEFT, moveresize, {.ui = CurResize} },
-        { ClkTagBar, 0, BTN_LEFT, view, {0} },
-        { ClkTagBar, 0, BTN_MIDDLE, toggleview, {0} },
-        { ClkTagBar, 0, BTN_RIGHT, movetagandview, {0} },
-        { ClkTagBar, MODKEY, BTN_LEFT, toggletag, {0} },
-    };
+/* Mouse actions */ 
+static const Button buttons[] = {
+    { ClkLtSymbol, 0,                    BTN_LEFT,       setlayout,          {.v = &layouts[0]} },
+    { ClkLtSymbol, 0,                    BTN_RIGHT,      setlayout,          {.v = &layouts[1]} },
+    { ClkLtSymbol, 0,                    BTN_MIDDLE,     setlayout,          {.v = &layouts[2]} },
+    { ClkTitle,    0,                    BTN_LEFT,       zoom,               {0} },
+    { ClkStatus,   0,                    BTN_LEFT,       spawn,              SHCMD("killall bemenu || j4-dmenu-desktop --no-generic --skip-i3-exec-check -b --dmenu bemenu -t foot") },
+    { ClkClient,   MODKEY,                BTN_LEFT,       moveresize,         {.ui = CurMove} },
+    { ClkClient,   MODKEY,                BTN_MIDDLE,     togglefloating,     {0} },
+    { ClkClient,   MODKEY|WLR_MODIFIER_CTRL, BTN_LEFT,     moveresize,         {.ui = CurResize} },
+    { ClkTagBar,   0,                    BTN_LEFT,       view,               {0} },
+    { ClkTagBar,   0,                    BTN_MIDDLE,     toggleview,         {0} },
+    { ClkTagBar,   0,                    BTN_RIGHT,      movetagandview,     {0} },
+    { ClkTagBar,   MODKEY,                BTN_LEFT,       toggletag,          {0} },
+};
+
