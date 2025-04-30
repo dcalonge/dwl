@@ -9,8 +9,6 @@
     static int gaps                            = 1;  /* 1 means gaps between windows are added */
     static const unsigned int gappx            = 8; /* gap pixel between windows */
     static const unsigned int borderpx         = 2;  /* border pixel of windows */
-    static const unsigned int systrayspacing   = 2; /* systray spacing */
-    static const int showsystray               = 1; /* 0 means no systray */
     static const int user_bh		               = 24; /* 0 means that dwl will calculate barheight, >= 1 means dwl will use user_bh as the bar height. */
     static const int showbar                   = 1; /* 0 means no bar */
     static const int topbar                    = 1; /* 0 means bottom bar */
@@ -96,7 +94,6 @@
     static const char *termcmd[]  = { "foot", NULL };
     static const char *filescmd[]  = { "pcmanfm", NULL };
     static const char *calculatorcmd[]  = { "qalculate-gtk", NULL };
-    static const char *dmenucmd[] = { "bemenu", NULL };
 
 
     /* Keys */
@@ -213,7 +210,6 @@ static const Button buttons[] = {
     { ClkTagBar,   0,                    BTN_LEFT,       view,               {0} },
     { ClkTagBar,   0,                    BTN_MIDDLE,     toggleview,         {0} },
     { ClkTagBar,   0,                    BTN_RIGHT,      movetagandview,     {0} },
-    { ClkTagBar,   MODKEY,               BTN_LEFT,       toggletag,          {0} },
-    { ClkTray,     0,                    BTN_LEFT,      traymenu,       {0} },
+    { ClkTagBar,   MODKEY,                BTN_LEFT,       toggletag,          {0} },
 };
 

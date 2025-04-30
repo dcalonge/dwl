@@ -1,0 +1,46 @@
+--- dwl.c
++++ dwl.c
+@@ -733,8 +745,8 @@ bufrelease(struct wl_listener *listener, void *data)
+ void
+ buttonpress(struct wl_listener *listener, void *data)
+ {
+-	unsigned int i = 0, x = 0;
+-	double cx;
++	unsigned int i = 0, x = 0, ti = 0;
++	double cx, tx = 0;
+ 	unsigned int click;
+ 	struct wlr_pointer_button_event *event = data;
+ 	struct wlr_keyboard *keyboard;
+@@ -764,6 +777,8 @@ buttonpress(struct wl_listener *listener, void *data)
+ 			(node = wlr_scene_node_at(&layers[LyrBottom]->node, cursor->x, cursor->y, NULL, NULL)) &&
+ 			(buffer = wlr_scene_buffer_from_node(node)) && buffer == selmon->scene_buffer) {
+ 			cx = (cursor->x - selmon->m.x) * selmon->wlr_output->scale;
++			traywidth = tray_get_width(selmon->tray);
++
+ 			do
+ 				x += TEXTW(selmon, tags[i]);
+ 			while (cx >= x && ++i < LENGTH(tags));
+@@ -1556,11 +1596,13 @@ drawbar(Monitor *m)
+ 	if (!(buf = bufmon(m)))
+ 		return;
+ 
++	traywidth = tray_get_width(m->tray);
++
+ 	/* draw status first so it can be overdrawn by tags later */
+ 	if (m == selmon) { /* status is only drawn on selected monitor */
+ 		drwl_setscheme(m->drw, colors[SchemeNorm]);
+ 		tw = TEXTW(m, stext) - m->lrpad + 2; /* 2px right padding */
+-		drwl_text(m->drw, m->b.width - tw, 0, tw, m->b.height, 0, stext, 0);
++		drwl_text(m->drw, m->b.width - (tw + traywidth), 0, tw, m->b.height, 0, stext, 0);
+ 	}
+ 
+ 	wl_list_for_each(c, &clients, link) {
+@@ -1586,7 +1628,7 @@ drawbar(Monitor *m)
+ 	drwl_setscheme(m->drw, colors[SchemeNorm]);
+ 	x = drwl_text(m->drw, x, 0, w, m->b.height, m->lrpad / 2, m->ltsymbol, 0);
+ 
+-	if ((w = m->b.width - tw - x) > m->b.height) {
++	if ((w = m->b.width - (tw + x + traywidth)) > m->b.height) {
+ 		if (c) {
+ 			drwl_setscheme(m->drw, colors[m == selmon ? SchemeSel : SchemeNorm]);
+ 			drwl_text(m->drw, x, 0, w, m->b.height, m->lrpad / 2, client_get_title(c), 0);
