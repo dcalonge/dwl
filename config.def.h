@@ -12,7 +12,7 @@
     static const int user_bh		               = 24; /* 0 means that dwl will calculate barheight, >= 1 means dwl will use user_bh as the bar height. */
     static const int showbar                   = 1; /* 0 means no bar */
     static const int topbar                    = 1; /* 0 means bottom bar */
-    static const char *fonts[]                 = {"JetbrainsMono Nerd Font:size=11:antialias=true:hinting=true"};
+    static const char *fonts[]                 = {"JetbrainsMono Nerd Font:size=11:antialias=true:hinting=true", "Noto Color Emoji Regular:size=11:antialias=true:hinting=true"};
     static const float rootcolor[]             = COLOR(0x000000ff);
 
     /* This conforms to the xdg-protocol. Set the alpha to zero to restore the old behavior */
