@@ -14,7 +14,7 @@
     static const int user_bh		               = 24; /* 0 means that dwl will calculate barheight, >= 1 means dwl will use user_bh as the bar height. */
     static const int showbar                   = 1; /* 0 means no bar */
     static const int topbar                    = 1; /* 0 means bottom bar */
-    static const char *fonts[]                 = {"JetbrainsMono Nerd Font:size=11:antialias=true:hinting=true"};
+    static const char *fonts[]                 = {"JetbrainsMono Nerd Font:size=11:antialias=true:hinting=true", "Noto Color Emoji Regular:size=11:antialias=true:hinting=true"};
     static const float rootcolor[]             = COLOR(0x000000ff);
 
     /* This conforms to the xdg-protocol. Set the alpha to zero to restore the old behavior */
@@ -207,13 +207,14 @@ static const Button buttons[] = {
     { ClkLtSymbol, 0,                    BTN_MIDDLE,     setlayout,          {.v = &layouts[2]} },
     { ClkTitle,    0,                    BTN_LEFT,       zoom,               {0} },
     { ClkStatus,   0,                    BTN_LEFT,       spawn,              SHCMD("killall bemenu || j4-dmenu-desktop --no-generic --skip-i3-exec-check -b --dmenu bemenu -t foot") },
-    { ClkClient,   MODKEY,                BTN_LEFT,       moveresize,         {.ui = CurMove} },
-    { ClkClient,   MODKEY,                BTN_MIDDLE,     togglefloating,     {0} },
+    { ClkClient,   MODKEY,               BTN_LEFT,      moveresize,         {.ui = CurMove} },
+    { ClkClient,   MODKEY,               BTN_MIDDLE,    togglefloating,     {0} },
     { ClkClient,   MODKEY|WLR_MODIFIER_CTRL, BTN_LEFT,     moveresize,         {.ui = CurResize} },
     { ClkTagBar,   0,                    BTN_LEFT,       view,               {0} },
     { ClkTagBar,   0,                    BTN_MIDDLE,     toggleview,         {0} },
     { ClkTagBar,   0,                    BTN_RIGHT,      movetagandview,     {0} },
     { ClkTagBar,   MODKEY,               BTN_LEFT,       toggletag,          {0} },
-    { ClkTray,     0,                    BTN_LEFT,      traymenu,       {0} },
+    { ClkTray,     0,                    BTN_LEFT,       traymenu,           {0} },
+    { ClkTray,     0,                    BTN_RIGHT,      trayactivate,       {0} },
 };
 
