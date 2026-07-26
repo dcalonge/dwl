@@ -1,7 +1,7 @@
 /*
  * drwl - https://codeberg.org/sewn/drwl
  *
- * Copyright (c) 2023-2024 sewn <sewn@disroot.org>
+ * Copyright (c) 2023-2025 sewn <sewn@disroot.org>
  * Copyright (c) 2024 notchoc <notchoc@disroot.org>
  * 
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -81,7 +81,6 @@ utf8decode(uint32_t *state, uint32_t *codep, uint8_t byte)
 static int
 drwl_init(void)
 {
-	fcft_set_scaling_filter(FCFT_SCALING_FILTER_LANCZOS3);
 	return fcft_init(FCFT_LOG_COLORIZE_AUTO, 0, FCFT_LOG_CLASS_ERROR);
 }
 
@@ -89,7 +88,7 @@ static Drwl *
 drwl_create(void)
 {
 	Drwl *drwl;
-
+	
 	if (!(drwl = calloc(1, sizeof(Drwl))))
 		return NULL;
 

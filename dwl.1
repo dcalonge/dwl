@@ -37,7 +37,7 @@ starts a shell process running
 when starting.
 When stopping, it sends
 .Dv SIGTERM
-to the child process and waits for it to exit.
+to the child process group and waits for it to exit.
 .Pp
 Users are encouraged to customize
 .Nm
@@ -55,10 +55,10 @@ Move window to a single tag.
 Toggle tag for window.
 .It Mod-p
 Spawn
-.Nm wmenu-run .
+.Xr wmenu-run 1 .
 .It Mod-Shift-Return
 Spawn
-.Nm foot .
+.Xr foot 1 .
 .It Mod-[jk]
 Move focus down/up the stack.
 .It Mod-[id]
@@ -100,6 +100,114 @@ Quit
 .Nm .
 .El
 These might differ depending on your keyboard layout.
+.Ss Mouse commands
+.Bl -tag -width 20n -offset indent -compact
+.It Mod-Button1
+Move focused window while dragging.
+Tiled windows will be toggled to the floating state.
+.It Mod-Button2
+Toggle focused window between floating and tiled state.
+.It Mod-Button3
+Resize focused window while dragging.
+Tiled windows will be toggled to the floating state.
+.El
+.Sh STATUS INFORMATION
+.Nm
+writes its status information to standard output.
+If the
+.Fl s
+option is given, the status information is written to the standard input of the
+child process instead.
+.Pp
+Said information has the following format:
+.Bd -ragged -offset indent
+.Ar <monitor>
+.Ar <component>
+.Ar <data>
+.Ed
+.Pp
+.Bl -tag -width 11n -offset 0 -compact
+.It Ar <monitor>
+is the name given to the output.
+.It Ar <component>
+is one of (in order)
+.Em title ,
+.Em appid ,
+.Em fullscreen ,
+.Em floating ,
+.Em selmon ,
+.Em tags ,
+.Em layout .
+.It Ar <data>
+changes depending on
+.Ar <component> .
+.Bl -tag -width 10n -compact
+.It Em title
+The title of the focused window on
+.Ar <monitor>
+or nothing if there is no focused window.
+.It Em appid
+The app_id of the focused window on
+.Ar <monitor>
+or nothing if there is no focused window.
+.It Em fullscreen
+Prints 1 if the focused window on
+.Ar <monitor>
+is in fullscreen state, otherwise prints 0. If there is no focused
+window it prints nothing.
+.It Em floating
+Prints 1 if the focused window on
+.Ar <monitor>
+is in floating state, otherwise prints 0. If there is no focused
+window it prints nothing.
+.It Em selmon
+Prints 1 if
+.Ar <monitor>
+is the selected monitor, otherwise prints 0.
+.It Em tags
+Prints four bitmasks in the following order:
+.Bl -bullet -width 2n -compact
+.It
+Occupied tags of
+.Ar <monitor> .
+.It
+Selected tags of
+.Ar <monitor> .
+.It
+Tags of the focused window on
+.Ar <monitor> .
+.It
+Tags where a window on
+.Ar <monitor>
+requested activation or has urgency hints.
+.El
+The bitmasks are 32-bit unsigned decimal integers.
+.It Em layout
+Prints the symbol of the current layout.
+.El
+.El
+.Ss Examples
+When there is a selected window:
+.Bd -literal -offset indent
+HDMI\-A\-1 title \(ti/source/repos/dwl > man \-l dwl.1
+HDMI\-A\-1 appid footclient
+HDMI\-A\-1 fullscreen 0
+HDMI\-A\-1 floating 0
+HDMI\-A\-1 selmon 1
+HDMI\-A\-1 tags 271 4 4 0
+HDMI\-A\-1 layout [T]
+.Ed
+.Pp
+When there is no selected window:
+.Bd -literal -offset indent
+HDMI\-A\-1 title
+HDMI\-A\-1 appid
+HDMI\-A\-1 fullscreen
+HDMI\-A\-1 floating
+HDMI\-A\-1 selmon 1
+HDMI\-A\-1 tags 271 512 0 0
+HDMI\-A\-1 layout [T]
+.Ed
 .Sh ENVIRONMENT
 These environment variables are used by
 .Nm :
@@ -142,17 +250,9 @@ Start
 with s6 in the background:
 .Dl dwl \-s \(aqs6\-svscan <&\-\(aq
 .Sh SEE ALSO
+.Xr dwm 1 ,
 .Xr foot 1 ,
 .Xr wmenu 1 ,
-.Xr dwm 1 ,
 .Xr xkeyboard-config 7
-.Sh CAVEATS
-The child process's standard input is connected with a pipe to
-.Nm .
-If the child process neither reads from the pipe nor closes its
-standard input,
-.Nm
-will freeze after a while due to it blocking when writing to the full
-pipe buffer.
 .Sh BUGS
 All of them.

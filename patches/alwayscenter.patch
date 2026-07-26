@@ -1,38 +1,25 @@
-From 6616470ef135019ef4c767003a66df76df45f53e Mon Sep 17 00:00:00 2001
+From 48110f0443c8e1ddcd56b6fed5da46535024919c Mon Sep 17 00:00:00 2001
 From: Guido Cella <guido@guidocella.xyz>
-Date: Wed, 5 Jun 2024 12:05:16 +0200
+Date: Tue, 13 Jan 2026 21:17:22 +0100
 Subject: [PATCH] center floating windows
 
 ---
- dwl.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ dwl.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/dwl.c b/dwl.c
-index 6f041a0..79ace52 100644
+index 44f3ad9..72714f8 100644
 --- a/dwl.c
 +++ b/dwl.c
-@@ -472,6 +472,10 @@ applyrules(Client *c)
- 			}
- 		}
+@@ -2414,6 +2414,8 @@ setmon(Client *c, Monitor *m, uint32_t newtags)
+ 		/* Make sure window actually overlaps with the monitor */
+ 		resize(c, c->geom, 0);
+ 		c->tags = newtags ? newtags : m->tagset[m->seltags]; /* assign tags of target monitor */
++		c->prev.x = (m->w.width - c->prev.width) / 2 + m->m.x;
++		c->prev.y = (m->w.height - c->prev.height) / 2 + m->m.y;
+ 		setfullscreen(c, c->isfullscreen); /* This will call arrange(c->mon) */
+ 		setfloating(c, c->isfloating);
  	}
-+	if (mon) {
-+		c->geom.x = (mon->w.width - c->geom.width) / 2 + mon->m.x;
-+		c->geom.y = (mon->w.height - c->geom.height) / 2 + mon->m.y;
-+	}
- 	setmon(c, mon, newtags);
- }
- 
-@@ -1677,6 +1681,10 @@ mapnotify(struct wl_listener *listener, void *data)
- 	 * try to apply rules for them */
- 	if ((p = client_get_parent(c))) {
- 		c->isfloating = 1;
-+		if (p->mon) {
-+			c->geom.x = (p->mon->w.width - c->geom.width) / 2 + p->mon->m.x;
-+			c->geom.y = (p->mon->w.height - c->geom.height) / 2 + p->mon->m.y;
-+		}
- 		setmon(c, p->mon, p->tags);
- 	} else {
- 		applyrules(c);
 -- 
-2.45.1
+2.52.0
 
