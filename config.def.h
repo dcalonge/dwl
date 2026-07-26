@@ -165,13 +165,13 @@ static const Key keys[] = {
   { MODKEY,  XKB_KEY_h,              spawn, SHCMD("foot -c ~/.config/foot/foot_no_pad.ini -e btop") },
 
   { MODKEY|WLR_MODIFIER_SHIFT,  XKB_KEY_A,              spawn,
-      SHCMD("foot -a foot-floating -e bluetuith") },
+      SHCMD("foot -a foot-floating -e bluetuith; kill -39 $(pidof dwmblocks)") },
 
   { MODKEY,                     XKB_KEY_w,              spawn,
       SHCMD("pkill fuzzel || iwmenu -l fuzzel") },
 
   { MODKEY,                     XKB_KEY_a,              spawn,
-      SHCMD("pkill fuzzel || bzmenu -l fuzzel") },
+      SHCMD("pkill fuzzel || bzmenu -l fuzzel; kill -39 $(pidof dwmblocks)") },
 
   { MODKEY,                     XKB_KEY_v,              spawn,
       SHCMD("pkill fuzzel || cliphist list | fuzzel --dmenu | cliphist decode | wl-copy") },
@@ -187,6 +187,9 @@ static const Key keys[] = {
 
   { MODKEY|WLR_MODIFIER_SHIFT,  XKB_KEY_S,              spawn,
       SHCMD("~/scripts/screenshot_river.sh") },
+
+  { MODKEY,  XKB_KEY_s,              spawn,
+      SHCMD("pkill wlsunset || wlsunset -l 40.4165 -L -3.70256") },
 
   /* Media keys */
   { 0,                              XKB_KEY_XF86AudioMute,      spawn,      SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && kill -44 $(pidof dwmblocks)") },

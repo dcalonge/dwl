@@ -374,6 +374,7 @@ static void setpsel(struct wl_listener *listener, void *data);
 static void setsel(struct wl_listener *listener, void *data);
 static void setup(void);
 static void spawn(const Arg *arg);
+static int sigreloadcolors(int signal, void *data);
 static void startdrag(struct wl_listener *listener, void *data);
 static int statusin(int fd, unsigned int mask, void *data);
 static void tag(const Arg *arg);
@@ -3060,6 +3061,8 @@ setup(void)
 	status_event_source = wl_event_loop_add_fd(wl_display_get_event_loop(dpy),
 		STDIN_FILENO, WL_EVENT_READABLE, statusin, NULL);
 
+	wl_event_loop_add_signal(event_loop, SIGUSR1, sigreloadcolors, NULL);
+
 	/* Make sure XWayland clients don't connect to the parent X server,
 	 * e.g when running in the x11 backend or the wayland backend and the
 	 * compositor has Xwayland support */
@@ -3078,6 +3081,13 @@ setup(void)
 		fprintf(stderr, "failed to setup XWayland X server, continuing without it\n");
 	}
 #endif
+}
+
+int
+sigreloadcolors(int signal, void *data)
+{
+	reload_colors(NULL);
+	return 0; /* returning non-zero would remove the signal source */
 }
 
 void
