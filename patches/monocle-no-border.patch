@@ -1,0 +1,31 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: pi66 <pixel2176@proton.me>
+Date: Sun, 26 Jul 2026 00:00:00 +0100
+Subject: [PATCH] monocle: hide borders
+
+---
+ dwl.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/dwl.c b/dwl.c
+index a1c92f0..7e4c9a1 100644
+--- a/dwl.c
++++ b/dwl.c
+@@ -1875,6 +1875,7 @@ monocle(Monitor *m)
+ 	wl_list_for_each(c, &clients, link) {
+ 		if (!VISIBLEON(c, m) || c->isfloating || c->isfullscreen)
+ 			continue;
++		c->bw = 0;
+ 		resize(c, m->w, 0);
+ 		n++;
+ 	}
+@@ -3335,6 +3336,7 @@ tile(Monitor *m)
+ 	wl_list_for_each(c, &clients, link) {
+ 		if (!VISIBLEON(c, m) || c->isfloating || c->isfullscreen)
+ 			continue;
++		c->bw = borderpx;
+ 		if (i < m->nmaster) {
+ 			resize(c, (struct wlr_box){.x = m->w.x, .y = m->w.y + my, .width = mw,
+ 				.height = (m->w.height - my) / (MIN(n, m->nmaster) - i)}, 0);
+-- 
+2.51.2

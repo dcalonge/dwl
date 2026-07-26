@@ -1,5 +1,6 @@
 [Desktop Entry]
 Name=dwl
-Comment=dwm for Wayland
-Exec=dwl
+Comment=dwl Wayland compositor
+Exec=dwmblocks | dwl -s /home/daniel/dwl/autostart.sh
 Type=Application
+DesktopNames=dwl

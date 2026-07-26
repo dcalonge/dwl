@@ -18,9 +18,6 @@ export EDITOR="nvim"
 systemctl --user import-environment XDG_CURRENT_DESKTOP WAYLAND_DISPLAY
 dbus-update-activation-environment --systemd XDG_CURRENT_DESKTOP WAYLAND_DISPLAY
 
-/usr/lib/xdg-desktop-portal &
-/usr/lib/xdg-desktop-portal-wlr &
-
 ~/scripts/setup_displays.sh
 
 wl-paste --watch cliphist store &
