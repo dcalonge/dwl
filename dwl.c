@@ -2263,6 +2263,7 @@ monocle(Monitor *m)
 	wl_list_for_each(c, &clients, link) {
 		if (!VISIBLEON(c, m) || c->isfloating || c->isfullscreen)
 			continue;
+		c->bw = 0;
 		resize(c, m->w, 0);
 		n++;
 	}
@@ -3183,6 +3184,7 @@ tile(Monitor *m)
 	wl_list_for_each(c, &clients, link) {
 		if (!VISIBLEON(c, m) || c->isfloating || c->isfullscreen)
 			continue;
+		c->bw = borderpx;
 		if (i < m->nmaster) {
 			r = MIN(n, m->nmaster) - i;
 			h = (m->w.height - my - gappx*e - gappx*e * (r - 1)) / r;

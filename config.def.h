@@ -228,7 +228,7 @@ static const Button buttons[] = {
 	{ ClkStatus,   0,      BTN_MIDDLE, spawn,          {.v = termcmd} },
 	{ ClkClient,   MODKEY, BTN_LEFT,   moveresize,     {.ui = CurMove} },
 	{ ClkClient,   MODKEY, BTN_MIDDLE, togglefloating, {0} },
-	{ ClkClient,   MODKEY, BTN_RIGHT,  moveresize,     {.ui = CurResize} },
+	{ ClkClient,   MODKEY|WLR_MODIFIER_CTRL, BTN_LEFT,  moveresize,     {.ui = CurResize} },
 	{ ClkTagBar,   0,      BTN_LEFT,   view,           {0} },
 	{ ClkTagBar,   0,      BTN_RIGHT,  toggleview,     {0} },
 	{ ClkTagBar,   MODKEY, BTN_LEFT,   tag,            {0} },
