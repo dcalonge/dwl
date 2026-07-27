@@ -110,8 +110,8 @@ static const Key keys[] = {
 	/* Window manager */
   { MODKEY,                         XKB_KEY_Left,           focusdir,       {.ui = 0} },
   { MODKEY,                         XKB_KEY_Right,          focusdir,       {.ui = 1} },
-  { MODKEY,                         XKB_KEY_Up,             focusstack,     {.i = -1} },
-  { MODKEY,                         XKB_KEY_Down,           focusstack,     {.i = +1} },
+  { MODKEY,                         XKB_KEY_Up,             focusdir,       {.i = 2} },
+  { MODKEY,                         XKB_KEY_Down,           focusdir,       {.i = 3} },
   { MODKEY|WLR_MODIFIER_SHIFT,      XKB_KEY_Left,           swapdir,        {.ui = 0} },
   { MODKEY|WLR_MODIFIER_SHIFT,      XKB_KEY_Right,          swapdir,        {.ui = 1} },
   { MODKEY|WLR_MODIFIER_SHIFT,      XKB_KEY_Up,             swapdir,        {.ui = 2} },

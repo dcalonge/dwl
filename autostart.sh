@@ -4,7 +4,7 @@ export LIBVA_DRIVER_NAME=radeonsi
 export VDPAU_DRIVER=va_gl
 export $(dbus-launch)
 export XDG_RUNTIME_DIR=/run/user/$(id -u)
-export GRIM_DEFAULT_DIR="/home/daniel/Pictures/"
+export GRIM_DEFAULT_DIR="/home/daniel/Pictures/Screenshots/"
 export PATH="$HOME/.local/bin:$PATH"
 export ELECTRON_OZONE_PLATFORM_HINT='auto'
 export XDG_CURRENT_DESKTOP=dwl
