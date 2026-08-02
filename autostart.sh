@@ -21,7 +21,6 @@ dbus-update-activation-environment --systemd XDG_CURRENT_DESKTOP WAYLAND_DISPLAY
 ~/scripts/setup_displays.sh
 
 wl-paste --watch cliphist store &
-mako &
 swaybg -i ~/Pictures/wallpaper &
 swayidle -w before-sleep gtklock &
 udiskie &

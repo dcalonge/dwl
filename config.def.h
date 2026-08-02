@@ -206,13 +206,6 @@ static const Key keys[] = {
   { 0, XKB_KEY_XF86AudioPrev,         spawn,
       SHCMD("playerctl previous") },
 
-  /* Brightness */
-  { 0, XKB_KEY_XF86MonBrightnessUp,   spawn,
-      SHCMD("brightnessctl set +5%") },
-
-  { 0, XKB_KEY_XF86MonBrightnessDown, spawn,
-      SHCMD("brightnessctl set 5%-") },
-
   /* Calculator key */
   { 0, XKB_KEY_XF86Calculator,        spawn, {.v = calculatorcmd } },
 
