@@ -108,18 +108,13 @@ static const Key keys[] = {
 	/* Note that Shift changes certain key codes: 2 -> at, etc. */
 	/* modifier                  key                  function          argument */
 	/* Window manager */
-  { MODKEY,                         XKB_KEY_Left,           focusdir,       {.ui = 0} },
-  { MODKEY,                         XKB_KEY_Right,          focusdir,       {.ui = 1} },
-  { MODKEY,                         XKB_KEY_Up,             focusdir,       {.i = 2} },
-  { MODKEY,                         XKB_KEY_Down,           focusdir,       {.i = 3} },
-  { MODKEY|WLR_MODIFIER_SHIFT,      XKB_KEY_Left,           swapdir,        {.ui = 0} },
-  { MODKEY|WLR_MODIFIER_SHIFT,      XKB_KEY_Right,          swapdir,        {.ui = 1} },
-  { MODKEY|WLR_MODIFIER_SHIFT,      XKB_KEY_Up,             swapdir,        {.ui = 2} },
-  { MODKEY|WLR_MODIFIER_SHIFT,      XKB_KEY_Down,           swapdir,        {.ui = 3} },
+  { MODKEY,                         XKB_KEY_Left,           setmfact,       {.f = -0.05f} },
+  { MODKEY,                         XKB_KEY_Right,          setmfact,       {.f = +0.05f} },
+  { MODKEY,                         XKB_KEY_Up,             focusstack,     {.i = -1} },
+  { MODKEY,                         XKB_KEY_Down,           focusstack,     {.i = +1} },
   { MODKEY,                         XKB_KEY_plus,           incnmaster,     {.i = +1} },
   { MODKEY,                         XKB_KEY_minus,          incnmaster,     {.i = -1} },
-  { MODKEY|WLR_MODIFIER_CTRL,       XKB_KEY_Right,          setmfact,       {.f = +0.05f} },
-  { MODKEY|WLR_MODIFIER_CTRL,       XKB_KEY_Left,           setmfact,       {.f = -0.05f} },
+
 
   { MODKEY|WLR_MODIFIER_SHIFT,  XKB_KEY_Return, zoom,           {0} },
 
