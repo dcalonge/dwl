@@ -222,3 +222,10 @@ static const Button buttons[] = {
 	{ ClkTagBar,   MODKEY, BTN_LEFT,   tag,            {0} },
 	{ ClkTagBar,   MODKEY, BTN_RIGHT,  toggletag,      {0} },
 };
+
+
+static const SwitchBinding switchbindings[] = {
+	/* switch_type              switch_state             func   arg */
+	{ WLR_SWITCH_TYPE_LID, WLR_SWITCH_STATE_ON,  spawn,  SHCMD("wlr-randr --output eDP-1 --off && kill -54 $(pidof dwmblocks)")}, /* lid closed */
+	{ WLR_SWITCH_TYPE_LID, WLR_SWITCH_STATE_OFF, spawn,  SHCMD("wlr-randr --output eDP-1 --on && kill -54 $(pidof dwmblocks)") }, /* lid opened */
+};

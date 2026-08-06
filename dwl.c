@@ -53,6 +53,7 @@
 #include <wlr/types/wlr_session_lock_v1.h>
 #include <wlr/types/wlr_single_pixel_buffer_v1.h>
 #include <wlr/types/wlr_subcompositor.h>
+#include <wlr/types/wlr_switch.h>
 #include <wlr/types/wlr_viewporter.h>
 #include <wlr/types/wlr_virtual_keyboard_v1.h>
 #include <wlr/types/wlr_virtual_pointer_v1.h>
@@ -156,6 +157,22 @@ typedef struct {
 	void (*func)(const Arg *);
 	const Arg arg;
 } Key;
+
+/* switch_type is a WLR_SWITCH_TYPE_* value (LID or TABLET_MODE);
+ * switch_state is WLR_SWITCH_STATE_ON (closed/folded) or _OFF (opened) */
+typedef struct {
+	enum wlr_switch_type switch_type;
+	enum wlr_switch_state switch_state;
+	void (*func)(const Arg *);
+	const Arg arg;
+} SwitchBinding;
+
+typedef struct {
+	struct wl_list link;
+	struct wlr_switch *wlr_switch;
+	struct wl_listener toggle;
+	struct wl_listener destroy;
+} Switch;
 
 typedef struct {
 	struct wlr_keyboard_group *wlr_group;
@@ -302,6 +319,9 @@ static void createmon(struct wl_listener *listener, void *data);
 static void createnotify(struct wl_listener *listener, void *data);
 static void createpointer(struct wlr_pointer *pointer);
 static void createpointerconstraint(struct wl_listener *listener, void *data);
+static void createswitch(struct wlr_switch *sw);
+static void switchtoggle(struct wl_listener *listener, void *data);
+static void switchdestroy(struct wl_listener *listener, void *data);
 static void createpopup(struct wl_listener *listener, void *data);
 static void cursorconstrain(struct wlr_pointer_constraint_v1 *constraint);
 static void cursorframe(struct wl_listener *listener, void *data);
@@ -439,6 +459,7 @@ static struct wlr_session_lock_v1 *cur_lock;
 
 static struct wlr_seat *seat;
 static KeyboardGroup *kb_group;
+static struct wl_list switches;
 static unsigned int cursor_mode;
 static Client *grabc;
 static int grabcx, grabcy; /* client-relative */
@@ -1397,6 +1418,43 @@ createpopup(struct wl_listener *listener, void *data)
 }
 
 void
+createswitch(struct wlr_switch *sw)
+{
+	Switch *s = ecalloc(1, sizeof(*s));
+	s->wlr_switch = sw;
+	LISTEN(&sw->events.toggle, &s->toggle, switchtoggle);
+	LISTEN(&sw->base.events.destroy, &s->destroy, switchdestroy);
+	wl_list_insert(&switches, &s->link);
+}
+
+void
+switchtoggle(struct wl_listener *listener, void *data)
+{
+	Switch *s = wl_container_of(listener, s, toggle);
+	struct wlr_switch_toggle_event *event = data;
+	const SwitchBinding *sb;
+
+	for (sb = switchbindings; sb < END(switchbindings); sb++) {
+		if (sb->switch_type == event->switch_type
+				&& sb->switch_state == event->switch_state
+				&& sb->func) {
+			sb->func(&sb->arg);
+			return;
+		}
+	}
+}
+
+void
+switchdestroy(struct wl_listener *listener, void *data)
+{
+	Switch *s = wl_container_of(listener, s, destroy);
+	wl_list_remove(&s->link);
+	wl_list_remove(&s->toggle.link);
+	wl_list_remove(&s->destroy.link);
+	free(s);
+}
+
+void
 cursorconstrain(struct wlr_pointer_constraint_v1 *constraint)
 {
 	if (active_constraint == constraint)
@@ -1859,6 +1917,9 @@ inputdevice(struct wl_listener *listener, void *data)
 		break;
 	case WLR_INPUT_DEVICE_POINTER:
 		createpointer(wlr_pointer_from_input_device(device));
+		break;
+	case WLR_INPUT_DEVICE_SWITCH:
+		createswitch(wlr_switch_from_input_device(device));
 		break;
 	default:
 		/* TODO handle other input device types */
@@ -2792,6 +2853,8 @@ setup(void)
 	 * backend. */
 	wl_list_init(&mons);
 	wl_signal_add(&backend->events.new_output, &new_output);
+
+	wl_list_init(&switches);
 
 	/* Set up our client lists, the xdg-shell and the layer-shell. The xdg-shell is a
 	 * Wayland protocol which is used for application windows. For more
